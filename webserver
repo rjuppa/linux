@@ -1,0 +1,103 @@
+### Apache
+```
+apt-get install apache2
+apt-get install libapache2-mod-php5
+
+service apache2 reload/status/restart
+#a2enmod ssl
+a2enmod | a2dismod
+a2ensite | a2dissite
+
+user: www-data / httpd
+
+/etc/apache2/sites-*
+/etc/apache2/mods-*
+/etc/apache/ports.conf
+/var/www/
+/var/log/apache2/*access.log
+/var/log/apache2/*error.log
+
+apachectl -t | apachectl -S
+
+cd /etc/apache2/sites-available
+cp default-ssl.conf www1ssl.conf
+
+<VirtualHost *:80>
+    ServerName test.spos
+    DocumentRoot "/var/www/test.spos/"
+    #Redirect / https://test.spos/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName test.spos
+    DocumentRoot "/var/www/secure/"
+
+    #SSLEngine on
+    #SSLCertificateFile /etc/apache2/ssl/server.crt
+    #SSLCertificateKeyFile /etc/apache2/ssl/server.key
+
+    ErrorLog /var/log/apache2/secure-error.log
+    CustomLog /var/log/apache2/secure-access.log common
+</VirtualHost>
+
+curl -k https://www1.test.spos
+Vytvoření umělého provozu pomocí nástroje curl (./test http://spos-name.spos 0.001):
+#!/bin/bash
+get_page () {
+        echo "request "$2""
+        curl -k "$1" &>/dev/null
+}
+i=0
+while true
+do
+        ((i=i+1))
+        get_page $1 $i
+        sleep $2
+done
+```
+
+### NGINX
+```
+apt-get install nginx - nesmí nic poslouchat na portu 80
+
+sudo vim /etc/nginx/sites-available/radekj.spos
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/radekj.spos/;
+        index index.html index.htm
+
+        server_name radekj.spos www.radekj.spos;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+
+sudo systemctl restart nginx
+
+/etc/nginx/sites-available/www.conf - vytvořit
+	upstream www1.test.spos { #tady je jmeno stranky, kterou chceme balancovat
+		ip_hash; #rika, ze klient bude vzdy komunikovat se stejnym server jako minule (nemusi tam byt)
+	        server  192.168.0.104:8008      weight=3        max_fails=2     fail_timeout=10s; #adresy s portem serveru, mezi kterymi se ma balancovat
+	        server  192.168.0.105:8080      weight=1        max_fails=2     fail_timeout=10s;
+	}
+	server {
+ 	       listen  80; #port, na kterem ma nginx poslouchat
+ 	       server_name www1.test.spos; #jmeno stranky, kterou chceme balancovat
+		
+		location /static {
+			root /var/www/web01; #adresar static bude brat ze zadaneho adresare
+		}
+
+ 	       location / {
+ 	               proxy_pass http://www1.test.spos; #jmeno stranky, kterou chceme balancovat
+	       }
+ 	}
+	#weigh - server s wight=3 bude prebirat 3x vice trafficu nez server s weight=1
+	#max_fails - kolikrat muze selhat pripojeni k danemu serveru nez ho ngnix prohlasi za offline
+	#fail_timeout - udava, po jak dlouhych intervalech se bude nginx snazit pripojit k serveru, ktery je down
+ln -s /etc/nginx/sites-available/www.conf /etc/nginx/sites-enabled/ - přidá stránku do sites-enabled
+
+```
