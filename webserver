@@ -1,8 +1,6 @@
 ### Apache
 ```
 apt-get install apache2
-apt-get install libapache2-mod-php5
-
 service apache2 reload/status/restart
 #a2enmod ssl
 a2enmod | a2dismod
@@ -24,6 +22,7 @@ cp default-ssl.conf www1ssl.conf
 
 <VirtualHost *:80>
     ServerName test.spos
+    ServerAlias web.test.spos
     DocumentRoot "/var/www/test.spos/"
     #Redirect / https://test.spos/
 </VirtualHost>
@@ -40,6 +39,12 @@ cp default-ssl.conf www1ssl.conf
     CustomLog /var/log/apache2/secure-access.log common
 </VirtualHost>
 
+openssl genrsa -des3 -out server.key 1024
+openssl req -new -key server.key -out server.csr
+cp server.key server.key.org
+openssl rsa -in server.key.org -out server.key
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+
 curl -k https://www1.test.spos
 Vytvoření umělého provozu pomocí nástroje curl (./test http://spos-name.spos 0.001):
 #!/bin/bash
@@ -55,6 +60,48 @@ do
         sleep $2
 done
 ```
+
+
+### PHP
+```
+apt-get install libapache2-mod-php5
+
+/etc/php5/apache2
+/etc/php5/cli
+
+upload_max_filesize = 16M
+memory_limit = 128M
+max_input_time = 60
+post_max_size = 16M
+max_execution_time = 30
+
+open_basedir = ...
+disable_functions = ...
+disable_classes = ...
+allow_url_fopen = On/Off
+allow_url_include = On/Off
+display_errors = On/Off
+error_reporting = E_ALL
+log_errors = On/Off
+
+php_admin_flag safe_mode On
+php_admin_value open_basedir /var/www/www.test.spos
+php_admin_value upload_tmp_dir /var/www/www.test.spos/phptmp
+php_admin_value session.save_path /var/www/www.test.spos/phptmp
+
+<?php
+  phpinfo();
+?>
+
+<?php
+    $page = $_GET['page'];
+    $xfile = fopen($page, "r") or die("Unable to open file!");
+    echo fgets($xfile);
+    fclose($xfile);
+?>
+
+```
+
 
 ### NGINX
 ```
