@@ -30,7 +30,32 @@ drwxr-xr-x 4 root     root     4096 Dec 11 11:23 ..
 -rw-r--r-- 1 username username 3771 Apr  4  2018 .bashrc
 -rw-r--r-- 1 username username  807 Apr  4  2018 .profile
 
+chmod +x /path/to/your/file.txt
+chmod g=u script.sh
+chmod 750 script.sh
+chmod -R a+X logs_dir
 
+mkdir -p 777 /var/www/dir/dir2
+
+rm -rf path/to/directory/*    (delete all files in derectory recursively)
+sudo ln -s /Users/devroot/statusdroid/src /app
+
+gzip -k file.txt
+gzip -r *
+gzip -d file.txt.gz
+
+printenv | grep ARTI
+
+find / -name "aaa.txt"
+find . -name "*.bak" -type f -delete
+
+whereis firefox  (for programs)
+which firefox
+
+ps -A 
+top -h
+killall firefox    (The killall command kills all the processes by name.)
+kill -9 <processid>
 
 
 ```
