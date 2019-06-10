@@ -1,4 +1,7 @@
 ```
+8.8.8.8
+1.1.1.1
+
 host -t NS zcu.cz
 dig -t AAAA zcu.cz
 nslookup (IP nebo adresa)
