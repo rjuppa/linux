@@ -58,6 +58,33 @@ chmod -R 700 /home/john/Maildir
 
 /etc/init.d/dovecot start
 /etc/init.d/postfix start
+
+
+Čtení pošty šifrovaně přes IMAP (nebo POP3), mutt:
+10-mail.conf - stejně jako pro telnet 
+cd /etc/dovecot
+mkdir certs
+cd certs
+openssl genrsa -des3 -out server.key 1024
+openssl req -new -key server.key -out server.csr
+cp server.key server.key.org
+openssl rsa -in server.key.org -out server.key
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+- vytvoří soubory server.crt a server.key (stejné jako pro SSL u webu)
+
+/etc/dovecot/conf.d/10-ssl.conf
+	ssl = yes
+	ssl_cert = </etc/dovecot/certs/server.crt
+	ssl_key = </etc/dovecot/certs/server.key
+
+~/.muttrc (v home adresáři uživatele, ze kterého se přihlašujeme)
+	- pro imap
+	set folder = imap://user:pass@localhost:143/
+	set spoolfile = imap://user:pass@localhost:143/
+	- pro pop3
+	set folder = pop://user:pass@localhost:110/
+	set spoolfile = pop://user:pass@localhost:110/
+user - uživatel, na kterého se přihlašujeme
 ```
 
 
@@ -80,6 +107,7 @@ chmod 777 .muttrc
 ```
 telnet localhost 110
 openssl s_client -connect localhost:995
+telnet localhost 143
 
 SMTP 25; POP3 110; IMAP 143; IMAPS 993; POP3S 995
 ```
