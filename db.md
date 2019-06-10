@@ -1,5 +1,6 @@
 ### MySql
 ```
+port: 3306
 apt-get install mysql-server
 /etc/init.d/mysql start|stop|restart
 /etc/mysql/
