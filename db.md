@@ -6,6 +6,11 @@ apt-get install mysql-server
 /etc/mysql/
 /var/lib/mysql
 
+sudo mysql
+mysql>SELECT user,authentication_string,plugin,host FROM mysql.user;
+mysql>ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'r';
+
 mysql -u root -p - přihlášení do databáze pod uživatele root
 mysql -u root -p -h 192.168.0.100 -P 3309 - přihlášení z jiného stroje na 192.168.0.100:3309
 
@@ -33,8 +38,11 @@ DESC tabulka;
 SHOW CREATE TABLE tabulka\G
 
 CREATE USER 'db01'@'localhost' IDENTIFIED BY 'password';
+-- ALTER USER 'user'@'localhost' IDENTIFIED BY 'newPass';
+-- SET PASSWORD FOR 'user'@'localhost' = PASSWORD('foobar');
 CREATE DATABASE db01 DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci;
-GRANT ALL PRIVILEGES ON db01.* to 'db01'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON db01.* to 'db01'@'localhost' IDENTIFIED BY 'xxx';
+FLUSH PRIVILEGES;
 CREATE TABLE table01(
    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
    firstname VARCHAR(30) NOT NULL,
@@ -42,12 +50,13 @@ CREATE TABLE table01(
    email VARCHAR(50),
    reg_date TIMESTAMP
 )
+INSERT INTO table01(id, firstname, lastname,email,reg_date) VALUES(1,'Radek','Juppa','rjuppa@gmail.com', NOW());
 
 <?php
 $servername = "localhost";
 $username = "username";
 $password = "password";
-$dbname = "myDB";
+$dbname = "db01";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -56,7 +65,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$sql = "SELECT id, firstname, lastname FROM table01";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -78,10 +87,14 @@ $conn->close();
 
 ### PostgreSQL
 ```
-apt-get install postgresql-9.4
-su - postgres
-/etc/postgresql/9.4/main/
-/var/lib/postgresql/9.4/main/
+port: 5432
+sudo apt install postgresql postgresql-contrib
+sudo apt install php-pgsql 
+sudo /etc/init.d/postgresql restart
+sudo -i -u postgres
+
+/etc/postgresql/10/main/
+/var/lib/postgresql/10/main/
 pg_hba.conf
 
 cat ~/.pgpass
@@ -93,7 +106,7 @@ local   all         all                              md5
 host    all         all             127.0.0.1/32     md5
 host    all         all             ::1/128          md5
 
-
+sudo psql -U db01 db01 -W
 psql -U root databaze
 \l
 \c databaze
@@ -104,12 +117,14 @@ psql -U root databaze
 pg_dump
 pg_restore
 
-createuser
-createdb
+create user myuser with encrypted password 'mypass';
+grant all privileges on database mydb to myuser;
+create database mydb;
 
-CREATE USER db01 WITH PASSWORD 'pasword';
+CREATE USER db01 WITH PASSWORD 'xxx';
 CREATE DATABASE db01 WITH OWNER=db01;
 GRANT ALL PRIVILEGES ON DATABASE db01 to db01;
+\c db01;
 CREATE TABLE table01(
    id SERIAL PRIMARY KEY,
    firstname VARCHAR(30) NOT NULL,
@@ -117,14 +132,16 @@ CREATE TABLE table01(
    email VARCHAR(50),
    reg_date TIMESTAMP
 );
+ALTER TABLE table01 OWNER TO db01;
+INSERT INTO table01(id, firstname, lastname,email,reg_date) VALUES(1,'Radek','Juppa','rjuppa@gmail.com', NOW());
 
 <?php
 // Connecting, selecting database
-$dbconn = pg_connect("host=localhost dbname=publishing user=www password=foo")
+$dbconn = pg_connect("host=localhost dbname=db01 user=db01 password=xx")
     or die('Could not connect: ' . pg_last_error());
 
 // Performing SQL query
-$query = 'SELECT * FROM authors';
+$query = 'SELECT * FROM table01';
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
 // Printing results in HTML
