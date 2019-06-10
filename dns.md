@@ -17,6 +17,9 @@ port 53
 apt-get install bind9 dnsutils
 service bind9 start|stop|restart
 
+/etc/resolv.conf
+nameserver 127.0.0.1
+
 /etc/bind/named.conf*
 /etc/bind/db.*
 less /var/log/syslog
