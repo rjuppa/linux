@@ -1,6 +1,9 @@
 ### Apache
 ```
+posts: 80, 443
 apt-get install apache2
+apt-get install curl
+
 service apache2 reload/status/restart
 #a2enmod ssl
 a2enmod | a2dismod
@@ -18,11 +21,17 @@ user: www-data / httpd
 apachectl -t | apachectl -S
 
 cd /etc/apache2/sites-available
-cp default-ssl.conf www1ssl.conf
+cp default-ssl.conf test.spos.conf
+mkdir -p /var/www/test.spos/
+chmod -R 750 /var/www/test.spos/
+chown -R radekj /var/www/test.spos/
+chgrp -R www-data /var/www/test.spos/
+a2enmod test.spos
+service apache2 reload
 
 <VirtualHost *:80>
     ServerName test.spos
-    ServerAlias web.test.spos
+    ServerAlias test.spos
     DocumentRoot "/var/www/test.spos/"
     #Redirect / https://test.spos/
 </VirtualHost>
@@ -64,7 +73,7 @@ done
 
 ### PHP
 ```
-apt-get install libapache2-mod-php5
+sudo apt install php libapache2-mod-php php-mysql
 
 /etc/php5/apache2
 /etc/php5/cli
