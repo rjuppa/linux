@@ -10,6 +10,7 @@ whois
 
 ### bind
 ```
+port 53
 apt-get install bind9 dnsutils
 service bind9 start|stop|restart
 
@@ -17,8 +18,15 @@ service bind9 start|stop|restart
 /etc/bind/db.*
 less /var/log/syslog
 
-
 dig -t A zcu.cz @127.0.0.1
+
+/etc/bind/named.conf.local 
+zone "test.spos" { 			// zona test.spos
+        type master;
+        allow-transfer { any; };
+        file "/etc/bind/db.test.spos"; 
+};
+
 /etc/bind/db.test.spos
 $TTL	86400
 @	IN	SOA	test.spos. root.localhost. (
@@ -36,7 +44,7 @@ ns1	IN	A	192.168.0.106
 @       IN      MX      10      mail
 
 ------------------------------
-/etc/bind/db.192.168.0
+/etc/bind/db.192.168.0			// reverzni zaznam
 $ORIGIN 0.168.192.in-addr.arpa.
 $TTL	604800
 @	IN	SOA	ns1.test.spos. root.localhost. (
