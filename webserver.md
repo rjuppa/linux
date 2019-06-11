@@ -116,44 +116,58 @@ php_admin_value session.save_path /var/www/www.test.spos/phptmp
 ```
 apt-get install nginx - nesmí nic poslouchat na portu 80
 
-sudo vim /etc/nginx/sites-available/radekj.spos
+sudo vim /etc/nginx/sites-available/test.spos
 server {
-        listen 80;
-        listen [::]:80;
+        listen   80; 
+        root /var/www/test.spos/; 
+        index index.php index.html index.htm;
 
-        root /var/www/radekj.spos/;
-        index index.html index.htm
-
-        server_name radekj.spos www.radekj.spos;
-
+        server_name test.spos; 
         location / {
-                try_files $uri $uri/ =404;
+        try_files $uri $uri/ /index.php;
+        }
+
+        location ~ \.php$ {
+          proxy_set_header X-Real-IP  $remote_addr;
+          proxy_set_header X-Forwarded-For $remote_addr;
+          proxy_set_header Host $host;
+          proxy_pass http://127.0.0.1:8080;
+         }
+         location ~ /\.ht {
+                deny all;
         }
 }
 
+sudo rm /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/test.spos /etc/nginx/sites-enabled/test.spos
 sudo systemctl restart nginx
 
-/etc/nginx/sites-available/www.conf - vytvořit
-	upstream www1.test.spos { #tady je jmeno stranky, kterou chceme balancovat
-		ip_hash; #rika, ze klient bude vzdy komunikovat se stejnym server jako minule (nemusi tam byt)
-	        server  192.168.0.104:8008      weight=3        max_fails=2     fail_timeout=10s; #adresy s portem serveru, mezi kterymi se ma balancovat
-	        server  192.168.0.105:8080      weight=1        max_fails=2     fail_timeout=10s;
-	}
-	server {
- 	       listen  80; #port, na kterem ma nginx poslouchat
- 	       server_name www1.test.spos; #jmeno stranky, kterou chceme balancovat
-		
-		location /static {
-			root /var/www/web01; #adresar static bude brat ze zadaneho adresare
-		}
+sudo vim /etc/apache2/ports.conf		// Apache listen on 127.0.0.1:8080
+NameVirtualHost 127.0.0.1:8080
+Listen 127.0.0.1:8080
 
- 	       location / {
- 	               proxy_pass http://www1.test.spos; #jmeno stranky, kterou chceme balancovat
-	       }
- 	}
-	#weigh - server s wight=3 bude prebirat 3x vice trafficu nez server s weight=1
-	#max_fails - kolikrat muze selhat pripojeni k danemu serveru nez ho ngnix prohlasi za offline
-	#fail_timeout - udava, po jak dlouhych intervalech se bude nginx snazit pripojit k serveru, ktery je down
-ln -s /etc/nginx/sites-available/www.conf /etc/nginx/sites-enabled/ - přidá stránku do sites-enabled
+# set apache
+sudo vim /etc/apache2/sites-available/test.spos
+change <VirtualHost 127.0.0.1:8080>
+sudo service apache2 restart
+
+# load balancing
+nginx.conf
+http {
+  upstream myproject {
+    server 127.0.0.1:8000 weight=3;
+    server 127.0.0.1:8001;
+    server 127.0.0.1:8002;
+    server 127.0.0.1:8003;
+  }
+
+  server {
+    listen 80;
+    server_name www.domain.com;
+    location / {
+      proxy_pass http://myproject;
+    }
+  }
+}
 
 ```
