@@ -154,7 +154,7 @@ sudo service apache2 restart
 # load balancing
 nginx.conf
 http {
-  upstream myproject {
+  upstream backend {
     server 127.0.0.1:8000 weight=3;
     server 127.0.0.1:8001;
     server 127.0.0.1:8002;
@@ -163,11 +163,39 @@ http {
 
   server {
     listen 80;
-    server_name www.domain.com;
+    server_name test.spos;
     location / {
-      proxy_pass http://myproject;
+      proxy_pass http://backend;
     }
   }
 }
+
+
+# DNS round robin
+www	IN	A	147.228.67.42
+www	IN	A	147.228.67.43
+www	IN	A	147.228.67.44
+```
+
+### Pound
+```
+apt-get install pound
+/etc/pound/pound.cfg
+	Service
+		HeadRequire "Host:.*www.test.spos"
+		BackEnd
+			Address	127.0.0.1
+			Port	80
+			Priority 5
+		End
+		BackEnd
+			Address 10.228.67.42
+			Port    80
+			Priority 5
+		End
+	End
+
+poundctl -c /var/run/pound/poundctl.socket
+poundctl -c /var/run/pound/poundctl.socket -b 0 0 1
 
 ```
