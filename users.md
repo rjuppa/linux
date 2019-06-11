@@ -22,6 +22,8 @@ chmod -R 777 /var/dir
 chown -R nobody:nogroup /mnt/raid5
 chgrp -R nogroup /var/dir
 
+chmod 600 ~/.ssh/authorized_keys
+
 
 ls -la /home/username/
 drwxr-xr-x 2 username username 4096 Dec 11 11:23 .
