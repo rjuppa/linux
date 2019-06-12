@@ -94,4 +94,20 @@ sudo ufw delete 2
 
 nmap 192.168.0.0/24
 nmap -p 53 192.168.0.1
+
+# add new IP addr
+ip a show
+ip a add 192.168.0.100/24 dev eth0  
+ping 192.168.0.100
+ip a del 192.168.0.100/24 dev eth0
+
+ip addr show dev eth0
+ip link set dev eth0 up
+ip link set dev eth0 address aa:bb:cc:dd:ee:ff
+ip addr add 192.168.1.11/24 dev eth0
+route
+ip neigh
+ifup
+
+service networking restart
 ```
