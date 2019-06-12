@@ -56,8 +56,17 @@ sshfs user1@192.168.121.121:/home/user1 /home/user1/mount_point
 ### RAID
 ```
 sudo apt install mdadm
+cat /proc/mdstat
+mdadm --detail /dev/md127
+
 mdadm -Cv /dev/md0 -l1 -n2 /dev/sd[ab]1
 sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/loop18 /dev/loop19
+sudo mdadm --create /dev/md1 -l5  -n5 /dev/sda1 /dev/sdb1 /dev/sdc1	/dev/sdd1 /dev/sde1
+sudo mdadm --create /dev/md1 -l5  -n3 /dev/sda1 /dev/sdb1 missing
+mdadm --fail /dev/md0 /dev/sda1
+mdadm --remove /dev/md0 /dev/sda1
+mdadm --add /dev/md0 /dev/sdc1
+
 sudo mkfs.ext4 -F /dev/md0
 sudo mkdir -p /mnt/md0
 sudo mount /dev/md0 /mnt/md0
@@ -74,6 +83,17 @@ echo "ahoj!" > /mnt/md0/test.txt
 sudo apt-get install lvm2  
 sudo lvs
 sudo lvscan
+
+pvdisplay /dev/sda
+vgcreate data /dev/sda
+vgdisplay data
+lvcreate --name video --size 20M data
+mkfs.ext3 /dev/data/video
+mount /dev/data/video /mnt
+umount /mnt
+lvremove /dev/jmeno_skupiny/jmeno_oddilu
+
+
 sudo lvcreate -n lv1 -L 10G vg1
 sudo mkfs.ext4 /dev/vg1/lv1
 sudo mount /dev/vg1/lv1 /media/files
