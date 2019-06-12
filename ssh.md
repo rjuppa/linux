@@ -34,3 +34,13 @@ su - radekj
 id radekj
 logout
 ```
+
+### rsync - backup
+```
+apt-get install -y openssh-server
+rsync -av ~/TEST /data/
+rsync -av -e ssh /data backup@192.168.1.228:/backup/
+
+zip /data/MONDAY.zip /data/MONDAY && rsync -av -e ssh /data/MONDAY.zip backup@192.168.1.228:/backup/
+
+```
