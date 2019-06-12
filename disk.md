@@ -16,7 +16,7 @@ cfdisk /dev/sda
 sfdisk -s
 sfdisk -d /dev/sda | sfdisk /dev/sdb
 
-lsmod
+lsblk
 sudo parted -l
 sudo parted /dev/vdc
 sudo fdisk /dev/sda
