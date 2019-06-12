@@ -35,8 +35,8 @@ ls -l ~/.ssh/id_*
 
 
 ls -l ~/.ssh/id_*
-ssh-keygen -t rsa -b 4096 -C "root@147.228.67.X"
-ssh-copy-id root@147.228.67.X
+ssh-keygen -t rsa -b 4096 -C "radekj@eryx.zcu.cz"
+ssh-copy-id root@147.228.67.XX
 
 vim /etc/ssh/sshd_config
 PasswordAuthentication no
