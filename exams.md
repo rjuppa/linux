@@ -95,4 +95,30 @@ service bind9 restart
 
 
 
+LVM
+pvcreate /dev/vdd
+pvdisplay /dev/vdd
+vgcreate vg_data /dev/vdd
+lvcreate --name lv_share --size 200M vg_data
+lvdisplay /dev/vg_data/lv_share
+mkfs.ext4 /dev/vg_data/lv_share
+mount /dev/vg_data/lv_share /mnt
+lvscan
+blkid
+mkdir -p /mnt/example
+# /etc/fstab
+UUID=fcde9bb7-4311-41e2-986a-647a672ebf83       /mnt/example    ext4    defaults        0       2
+
+
+MDADM RAID
+cat /proc/mdstat
+mdadm --detail /dev/md127
+sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/loop18 /dev/loop19
+sudo mdadm --create /dev/md1 -l5  -n5 /dev/sda1 /dev/sdb1 /dev/sdc1	/dev/sdd1 /dev/sde1
+sudo mdadm --create /dev/md1 -l5  -n3 /dev/sda1 /dev/sdb1 missing
+mdadm --remove /dev/md0 /dev/sda1
+# /etc/fstab
+LABEL=seagate_2tb_usb     /media/usb    ext3   defaults 0 0
+
+
 ```
