@@ -121,4 +121,17 @@ mdadm --remove /dev/md0 /dev/sda1
 LABEL=seagate_2tb_usb     /media/usb    ext3   defaults 0 0
 
 
+SSL CERT
+openssl genrsa -des3 -out server.key 2048
+openssl rsa -in server.key -out server.key.insecure
+mv server.key server.key.secure
+mv server.key.insecure server.key
+openssl req -new -key server.key -out server.csr
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+sudo cp server.crt /etc/ssl/certs
+sudo cp server.key /etc/ssl/private
+
+use:
+ssl_cert_file = /etc/ssl/certs/server.crt 
+ssl_key_file = /etc/ssl/private/server.key
 ```
