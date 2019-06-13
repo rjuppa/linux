@@ -1,3 +1,11 @@
+- 2 ssh sessiony
+- instalace
+- iptables
+- dns
+- disky
+- sdileni
+- mail/webserver
+
 
 ```
 apt install vim mc iptables curl cron
