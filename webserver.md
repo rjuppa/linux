@@ -122,7 +122,14 @@ server {
         root /var/www/test.spos/; 
         index index.php index.html index.htm;
 
+	//listen   443; 
+	//ssl    on;
+	//ssl_certificate    /etc/ssl/server.pem; (or bundle.crt)
+	//ssl_certificate_key    /etc/ssl/server.key;
+	
         server_name test.spos; 
+	access_log /var/log/nginx/test.spos.access.log;
+	error_log /var/log/nginx/test.spos.error.log;
         location / {
         try_files $uri $uri/ /index.php;
         }
