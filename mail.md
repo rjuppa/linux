@@ -12,6 +12,7 @@ usermod -G mail user
 mail    IN      A       192.168.0.106
 @       IN      MX 10   mail
 
+/etc/postfix/master.cf
 /etc/postfix/main.cf:
 myorigin = test.spos
 myhostname = test.spos
@@ -19,6 +20,7 @@ mydomain = test.spos
 mydestination = $myhostname, green, localhost.localdomain, localhost
 mynetworks = 192.168.0.0/24 127.0.0.0/8 
 home_mailbox = Maildir/
+mailbox_command =
 
 service postfix restart
 echo "Test2" | mail -s "Testovaci mail2" radekj@test.spos
@@ -50,6 +52,19 @@ newaliases
 ```
 sudo apt-get install dovecot-pop3d
 sudo apt-get install dovecot-imapd
+
+vim /etc/dovecot/dovecot.conf
+protocols = imap pop3 imaps pop3s
+
+vim /etc/dovecot/conf.d/10-ssl.conf 
+ssl= yes | no | required
+ssl_disable = no
+ssl_cert_file = /etc/ssl/certs/server.crt 
+ssl_key_file = /etc/ssl/private/server.key
+
+/etc/dovecot/conf.d/10-mail.conf
+mail_location = mbox:~/mail:INBOX=/var/mail/%u
+mail_location = maildir:~/Maildir
 
 sudo useradd -m -s /bin/bash john
 mkdir /home/john/Maildir
