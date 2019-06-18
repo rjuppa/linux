@@ -74,6 +74,7 @@ force user = nobody
 
 service smbd restart
 mount -t cifs //localhost/public /mnt/samba
+mount -t cifs //host_name/VIEWER_SHARE -o username=username,password=password /local_path
 
 vim /etc/fstab	# add line
 //localhost/public /mnt/samba      cifs   defaults 0 0
