@@ -12,7 +12,7 @@ apt install vim mc iptables curl cron
 
 apt install mdadm
 apt install lvm2  
-apt install nfs-common, nfs-server, nfs-kernel-server
+apt install nfs-common nfs-server nfs-kernel-server
 apt install samba smbclient cifs-utils
 
 apt install bind9 dnsutils
