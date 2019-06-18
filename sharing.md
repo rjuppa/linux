@@ -1,7 +1,7 @@
 ### NFS
 ```
-sudo apt install nfs-common nfs-server nfs-kernel-server
-sudo vim /etc/fstab
+apt install nfs-common nfs-server nfs-kernel-server
+vim /etc/fstab
 ports: 111, 2049 both
 
 # autentikace mezi systemy se prenasi podle uid/gid
@@ -38,9 +38,9 @@ fuser -m DIRECTORY # kdo tam ma neco otevreneho
 
 ### SAMBA
 ```
-sudo apt install samba smbclient cifs-utils
-sudo vim /etc/samba/smb.conf
-sudo systemctl status/restart nmbd
+apt install samba smbclient cifs-utils
+vim /etc/samba/smb.conf
+service smbd restart
 
 TCP ports 139 and 445
 UDP ports 137 and 138
@@ -48,22 +48,22 @@ UDP ports 137 and 138
 addgroup --gid 6001 cifs
 usermod -G cifs radekj
 
-sudo mkdir /samba
-sudo chgrp sambashare /samba
-sudo mkdir /samba/radek_smb
+mkdir /samba
+chgrp sambashare /samba
+mkdir /samba/radek_smb
 
-sudo useradd -M -d /samba/radek_smb -s /usr/sbin/nologin -G sambashare radek_smb
-sudo chown radek_smb:sambashare /samba/radek_smb
-sudo chmod 2770 /samba/radek_smb
-sudo smbpasswd -a radek_smb
-sudo smbpasswd -e radek_smb
+useradd -M -d /samba/radek_smb -s /usr/sbin/nologin -G sambashare radek_smb
+chown radek_smb:sambashare /samba/radek_smb
+chmod 2770 /samba/radek_smb
+smbpasswd -a radek_smb
+smbpasswd -e radek_smb
 
-sudo useradd -M -d /samba/users -s /usr/sbin/nologin -G sambashare sadmin
-sudo mkdir /samba/users
-sudo chown sadmin:sambashare /samba/users
-sudo smbpasswd -a sadmin
-sudo smbpasswd -e sadmin
-sudo chmod 2770 /samba/users
+useradd -M -d /samba/users -s /usr/sbin/nologin -G sambashare sadmin
+mkdir /samba/users
+chown sadmin:sambashare /samba/users
+smbpasswd -a sadmin
+smbpasswd -e sadmin
+chmod 2770 /samba/users
 pdbedit -w -L
 
 [users]
