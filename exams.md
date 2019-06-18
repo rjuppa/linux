@@ -64,9 +64,12 @@ ufw enable
 
 
 SAMBA
+mkdir -p /mnt/samba
+chgrp sambashare /mnt/samba
+
 vim /etc/samba/smb.conf
 [public]
-path = /samba/public
+path = /mnt/samba
 browsable = yes
 writable = yes
 read only = no
