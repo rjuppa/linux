@@ -1,6 +1,6 @@
 ### NFS
 ```
-sudo apt install nfs-common, nfs-server, nfs-kernel-server
+sudo apt install nfs-common nfs-server nfs-kernel-server
 sudo vim /etc/fstab
 ports: 111, 2049 both
 
@@ -14,24 +14,25 @@ adduser --gid 6000 --uid 6000 nfs_share
 usermod -a -G user1 grp1
 gpasswd -d user1 grp1
 
-hown nobody:nogroup /mnt/raid5
+chown nobody:nogroup /mnt/raid5
 chmod -R 770 /mnt/raid5/
 lsblk
-sudo mount /dev/md127 /mnt/raid5
+mount /dev/md127 /mnt/raid5
 /etc/init.d/nfs-kernel-server start
 exportfs -r
 
 showmount -e 192.168.0.106
 
 # client: 
+addgroup --gid 6000 nfs_share
 adduser --gid 6000 --uid 6000 nfs_share
-sudo mount 192.168.0.106:/mnt/raid5 /mnt/raid5
+mount 192.168.0.106:/mnt/raid5 /mnt/raid5
 
 # /etc/fstab
 192.168.0.106:/mnt/raid5	/mnt/raid5	nfs	defaults	0	0
 
-sudo mount -t ntfs /dev/vdb1 /mnt
-sudo mount /mnt/nfs
+mount -t nfs /dev/vdb1 /mnt
+mount /mnt/nfs
 fuser -m DIRECTORY # kdo tam ma neco otevreneho
 ```
 
