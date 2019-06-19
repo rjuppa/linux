@@ -120,9 +120,26 @@ chmod 777 .muttrc
 
 ### test
 ```
+# Test POP3 služby:
 telnet localhost 110
-openssl s_client -connect localhost:995
+# https://tools.ietf.org/html/rfc1939
+USER jindra
+PASS jindra123
+LIST
+RETR 1
+DELE 1
+QUIT
+
+# Dovecot pro IMAP - !!sdílí předchozí nastavení z POP3
 telnet localhost 143
+# https://tools.ietf.org/html/rfc3501
+1 LOGIN jindra jindra123
+2 select inbox
+5 FETCH 1 BODY[]
+6 LOGOUT
+
+
+openssl s_client -connect localhost:995
 
 SMTP 25; POP3 110; IMAP 143; IMAPS 993; POP3S 995
 ```
