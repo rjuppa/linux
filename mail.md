@@ -6,7 +6,8 @@ service postfix restart
 less /var/log/mail.log
 
 # každý uživatel, kterému má být možno poslat mail, musí být ve skupině mail
-usermod -G mail user 
+useradd -m -s /bin/bash user1
+usermod -G mail user1
 
 # Modifikace DNS pro maily (domena test.spos, adresa 192.168.0.106):
 mail    IN      A       192.168.0.106
