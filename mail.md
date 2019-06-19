@@ -50,8 +50,8 @@ newaliases
 
 ### DOVECOT
 ```
-sudo apt-get install dovecot-pop3d
-sudo apt-get install dovecot-imapd
+apt-get install dovecot-pop3d
+apt-get install dovecot-imapd
 
 vim /etc/dovecot/dovecot.conf
 protocols = imap pop3 imaps pop3s
@@ -66,7 +66,7 @@ ssl_key_file = /etc/ssl/private/server.key
 mail_location = mbox:~/mail:INBOX=/var/mail/%u
 mail_location = maildir:~/Maildir
 
-sudo useradd -m -s /bin/bash john
+useradd -m -s /bin/bash john
 mkdir /home/john/Maildir
 chown john:john /home/john/Maildir
 chmod -R 700 /home/john/Maildir 
@@ -105,9 +105,9 @@ user - uživatel, na kterého se přihlašujeme
 
 ### MUTT - prohlížení mailů
 ```
-sudo apt-get install mutt
+apt-get install mutt
 mutt -f Maildir/
-sudo mutt -f /home/user2/Maildir
+mutt -f /home/user2/Maildir
 mutt
 
 # pres IMAP
