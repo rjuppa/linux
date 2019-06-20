@@ -4,7 +4,7 @@ posts: 80, 443
 apt-get install apache2
 apt-get install curl
 
-service apache2 reload/status/restart
+service apache2 restart
 #a2enmod ssl
 a2enmod | a2dismod
 a2ensite | a2dissite
@@ -17,7 +17,6 @@ user: www-data / httpd
 /etc/apache/ports.conf
 /var/www/
 /var/log/apache2/*access.log
-/var/log/apache2/*error.log
 
 apachectl -t | apachectl -S
 
@@ -42,8 +41,8 @@ service apache2 reload
     DocumentRoot "/var/www/secure/"
 
     #SSLEngine on
-    #SSLCertificateFile /etc/apache2/ssl/server.crt
-    #SSLCertificateKeyFile /etc/apache2/ssl/server.key
+    #SSLCertificateFile /etc/ssl/server.crt
+    #SSLCertificateKeyFile /etc/ssl/server.key
 
     ErrorLog /var/log/apache2/secure-error.log
     CustomLog /var/log/apache2/secure-access.log common
@@ -76,8 +75,8 @@ done
 ```
 apt install php libapache2-mod-php php-mysql
 
-/etc/php5/apache2
-/etc/php5/cli
+vim /etc/php/7.2/apache2/php.ini
+cat /etc/php/7.2/cli/php.ini
 
 upload_max_filesize = 16M
 memory_limit = 128M
@@ -125,15 +124,17 @@ server {
 
 	//listen   443; 
 	//ssl    on;
-	//ssl_certificate    /etc/ssl/server.pem; (or bundle.crt)
+	//ssl_certificate    /etc/ssl/server.crt;     // (.pem or .crt)
 	//ssl_certificate_key    /etc/ssl/server.key;
 	
         server_name test.spos; 
 	access_log /var/log/nginx/test.spos.access.log;
 	error_log /var/log/nginx/test.spos.error.log;
-        location / {
-        try_files $uri $uri/ /index.php;
-        }
+	
+	// MVC entry point
+        //location / {
+        //  try_files $uri $uri/ /index.php;
+        //}
 
         location ~ \.php$ {
           proxy_set_header X-Real-IP  $remote_addr;
