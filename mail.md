@@ -59,8 +59,8 @@ protocols = imap pop3 imaps pop3s
 vim /etc/dovecot/conf.d/10-ssl.conf 
 ssl= yes | no | required
 ssl_disable = no
-ssl_cert_file = /etc/ssl/certs/server.crt 
-ssl_key_file = /etc/ssl/private/server.key
+ssl_cert_file = /etc/ssl/server.crt 
+ssl_key_file = /etc/ssl/server.key
 
 /etc/dovecot/conf.d/10-mail.conf
 mail_location = mbox:~/mail:INBOX=/var/mail/%u
@@ -89,8 +89,8 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 
 /etc/dovecot/conf.d/10-ssl.conf
 	ssl = yes
-	ssl_cert = </etc/dovecot/certs/server.crt
-	ssl_key = </etc/dovecot/certs/server.key
+	ssl_cert = </etc/ssl/server.crt
+	ssl_key = </etc/ssl/server.key
 
 ~/.muttrc (v home adresáři uživatele, ze kterého se přihlašujeme)
 	- pro imap
