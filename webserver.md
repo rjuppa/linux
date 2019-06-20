@@ -11,7 +11,8 @@ a2ensite | a2dissite
 
 user: www-data / httpd
 
-/etc/apache2/sites-*
+/etc/apache2/sites-available
+/etc/apache2/sites-enabled
 /etc/apache2/mods-*
 /etc/apache/ports.conf
 /var/www/
