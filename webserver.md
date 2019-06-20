@@ -1,6 +1,6 @@
 ### Apache
 ```
-posts: 80, 443
+posts: 80, 443               // netstat -tulpn | grep :8080        <- Who listen on :8080
 apt-get install apache2
 apt-get install curl
 
