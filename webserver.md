@@ -73,7 +73,7 @@ done
 
 ### PHP
 ```
-sudo apt install php libapache2-mod-php php-mysql
+apt install php libapache2-mod-php php-mysql
 
 /etc/php5/apache2
 /etc/php5/cli
@@ -116,7 +116,7 @@ php_admin_value session.save_path /var/www/www.test.spos/phptmp
 ```
 apt-get install nginx - nesmí nic poslouchat na portu 80
 
-sudo vim /etc/nginx/sites-available/test.spos
+vim /etc/nginx/sites-available/test.spos
 server {
         listen   80; 
         root /var/www/test.spos/; 
@@ -145,18 +145,18 @@ server {
         }
 }
 
-sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/test.spos /etc/nginx/sites-enabled/test.spos
-sudo systemctl restart nginx
+rm /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/test.spos /etc/nginx/sites-enabled/test.spos
+systemctl restart nginx
 
-sudo vim /etc/apache2/ports.conf		// Apache listen on 127.0.0.1:8080
+vim /etc/apache2/ports.conf		// Apache listen on 127.0.0.1:8080
 NameVirtualHost 127.0.0.1:8080
 Listen 127.0.0.1:8080
 
 # set apache
-sudo vim /etc/apache2/sites-available/test.spos
+vim /etc/apache2/sites-available/test.spos
 change <VirtualHost 127.0.0.1:8080>
-sudo service apache2 restart
+service apache2 restart
 
 # load balancing
 nginx.conf
