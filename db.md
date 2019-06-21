@@ -44,14 +44,15 @@ CREATE USER 'db01'@'localhost' IDENTIFIED BY 'password';
 CREATE DATABASE db01 DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci;
 GRANT ALL PRIVILEGES ON db01.* to 'db01'@'localhost' IDENTIFIED BY 'xxx';
 FLUSH PRIVILEGES;
-CREATE TABLE table01(
+CREATE TABLE skore(
    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
    firstname VARCHAR(30) NOT NULL,
    lastname VARCHAR(30) NOT NULL,
    email VARCHAR(50),
    reg_date TIMESTAMP
-)
+);
 INSERT INTO table01(id, firstname, lastname,email,reg_date) VALUES(1,'Radek','Juppa','rjuppa@gmail.com', NOW());
+INSERT INTO skore(jmeno, datum, score) VALUES('Radek', NOW(), 1);
 
 <?php
 $servername = "localhost";
