@@ -55,24 +55,32 @@ sshfs user1@192.168.121.121:/home/user1 /home/user1/mount_point
 
 ### RAID
 ```
-sudo apt install mdadm
+apt install mdadm
 cat /proc/mdstat
 mdadm --detail /dev/md127
 
+STOP RAID:
+mdadm --stop /dev/md0
+# mdadm --remove /dev/md0
+mdadm --zero-superblock /dev/vdb /dev/vdc /dev/vdd
+
+
 mdadm -Cv /dev/md0 -l1 -n2 /dev/sd[ab]1
-sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/loop18 /dev/loop19
-sudo mdadm --create /dev/md1 -l5  -n5 /dev/sda1 /dev/sdb1 /dev/sdc1	/dev/sdd1 /dev/sde1
-sudo mdadm --create /dev/md1 -l5  -n3 /dev/sda1 /dev/sdb1 missing
+mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/loop18 /dev/loop19
+mdadm --create /dev/md1 -l5  -n5 /dev/sda1 /dev/sdb1 /dev/sdc1	/dev/sdd1 /dev/sde1
+mdadm --create /dev/md1 -l5  -n3 /dev/sda1 /dev/sdb1 missing
 mdadm --fail /dev/md0 /dev/sda1
 mdadm --remove /dev/md0 /dev/sda1
 mdadm --add /dev/md0 /dev/sdc1
 
-sudo mkfs.ext4 -F /dev/md0
-sudo mkdir -p /mnt/md0
-sudo mount /dev/md0 /mnt/md0
+mkfs.ext4 -F /dev/md0
+e2label /dev/md1 raid5
+
+mkdir -p /mnt/md0
+mount /dev/md0 /mnt/md0
 df -h
-sudo chmod -R 777 /mnt/md0
-sudo chown -R myuser:mygroup Documents
+chmod -R 777 /mnt/md0
+chown -R myuser:mygroup Documents
 echo "ahoj!" > /mnt/md0/test.txt
 
 ```
@@ -80,9 +88,9 @@ echo "ahoj!" > /mnt/md0/test.txt
 
 ### LVM
 ```
-sudo apt-get install lvm2  
-sudo lvs
-sudo lvscan
+apt-get install lvm2  
+lvs
+lvscan
 
 pvdisplay /dev/sda
 vgcreate data /dev/sda
@@ -94,19 +102,19 @@ umount /mnt
 lvremove /dev/jmeno_skupiny/jmeno_oddilu
 
 
-sudo lvcreate -n lv1 -L 10G vg1
-sudo mkfs.ext4 /dev/vg1/lv1
-sudo mount /dev/vg1/lv1 /media/files
+lvcreate -n lv1 -L 10G vg1
+mkfs.ext4 /dev/vg1/lv1
+mount /dev/vg1/lv1 /media/files
 (pvcreate, vgcreate, vgs)
 
 # swap
-sudo fallocate -l 1G /swapfile
-sudo dd if=/dev/zero of=/swapfile bs=1024 count=1048576
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
+fallocate -l 1G /swapfile
+dd if=/dev/zero of=/swapfile bs=1024 count=1048576
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
 cat /etc/fstab
-sudo swapon --show
+swapon --show
 
 ```
 
