@@ -146,4 +146,33 @@ sudo cp server.key /etc/ssl/private
 use:
 ssl_cert_file = /etc/ssl/certs/server.crt 
 ssl_key_file = /etc/ssl/private/server.key
+
+
+
+
+touch /etc/exports
+touch /etc/samba/smb.conf
+
+touch /etc/bind/named.conf.local 
+touch /etc/bind/db.test.spos
+touch /etc/bind/db.192.168.0
+
+touch /etc/apache2/sites-available/test.spos.conf
+touch /etc/apache2/sites-available/test.spos.ssl.conf
+touch /var/www/test.spos/index.html
+touch /var/www/test.spos/index.php
+touch /etc/nginx/sites-available/test.spos
+touch /etc/nginx/sites-available/test.spos.ssl
+touch /etc/postgresql/10/main/pg_hba.conf
+
+touch /etc/fstab
+touch /proc/partitions
+touch /proc/mdstat
+
+touch /etc/postfix/main.cf
+touch /etc/aliases
+touch /etc/dovecot/dovecot.conf
+touch /etc/dovecot/conf.d/10-mail.conf
+touch /etc/dovecot/conf.d/10-ssl.conf
+
 ```
