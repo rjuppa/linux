@@ -1,8 +1,8 @@
 ### MySql
 ```
-port: 3306
+netstat -tulpn | grep :3306
 apt-get install mysql-server
-/etc/init.d/mysql start|stop|restart
+/etc/init.d/mysql status
 /etc/mysql/
 /var/lib/mysql
 
@@ -87,7 +87,7 @@ $conn->close();
 
 ### PostgreSQL
 ```
-port: 5432
+netstat -tulpn | grep :5432
 apt install postgresql postgresql-contrib
 apt install php-pgsql 
 /etc/init.d/postgresql restart
