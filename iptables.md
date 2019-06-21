@@ -30,6 +30,15 @@ iptables -D INPUT 3 	# delete line no.3
 
 /sbin/iptables-save 	# save changes
 
+BASIC SECURITY ====================
+ssh root@147.228.67.47
+ssh-copy-id root@147.228.67.47
+vim /etc/ssh/sshd_config
+PasswordAuthentication no
+iptables -F
+iptables -A INPUT -p tcp s 147.228.0.0/16 --dport 22 -j ACCEPT
+iptables -A INPUT -j DROP		# Dropping all other traffic
+
 ```
 
 ### ufw
