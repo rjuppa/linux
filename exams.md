@@ -8,8 +8,11 @@
 
 
 ```
+update-alternatives --config editor
+
 apt install curl wget apt-transport-https dirmngr
 
+cat /etc/apt/sources.list 
 #------------------------------------------------------------------------------#
 #                   OFFICIAL DEBIAN REPOS                    
 #------------------------------------------------------------------------------#
