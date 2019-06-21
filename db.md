@@ -6,7 +6,7 @@ apt-get install mysql-server
 /etc/mysql/
 /var/lib/mysql
 
-sudo mysql
+mysql
 mysql>SELECT user,authentication_string,plugin,host FROM mysql.user;
 mysql>ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'r';
@@ -88,17 +88,13 @@ $conn->close();
 ### PostgreSQL
 ```
 port: 5432
-sudo apt install postgresql postgresql-contrib
-sudo apt install php-pgsql 
-sudo /etc/init.d/postgresql restart
+apt install postgresql postgresql-contrib
+apt install php-pgsql 
+/etc/init.d/postgresql restart
 sudo -i -u postgres
 
 /etc/postgresql/10/main/
 /var/lib/postgresql/10/main/
-pg_hba.conf
-
-cat ~/.pgpass
-localhost:5432:db01:db01:password
 
 pg_hba.conf:
 local   all         postgres                         peer
@@ -106,7 +102,10 @@ local   all         all                              md5
 host    all         all             127.0.0.1/32     md5
 host    all         all             ::1/128          md5
 
-sudo psql -U db01 db01 -W
+cat ~/.pgpass
+localhost:5432:db01:db01:password
+
+psql -U db01 db01 -W
 psql -U root databaze
 \l
 \c databaze
