@@ -54,6 +54,11 @@ CREATE TABLE skore(
 INSERT INTO table01(id, firstname, lastname,email,reg_date) VALUES(1,'Radek','Juppa','rjuppa@gmail.com', NOW());
 INSERT INTO skore(jmeno, datum, score) VALUES('Radek', NOW(), 1);
 
+#! /bin/bash
+for i in `seq 1 50`; do
+   echo "INSERT INTO table01 (firstname, reg_date) VALUES ('$(pwgen 5 1)',now())"          # | mysql db01
+done
+
 <?php
 $servername = "localhost";
 $username = "username";
