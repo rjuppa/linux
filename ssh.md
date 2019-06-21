@@ -1,11 +1,11 @@
 ### ssh server
 ```
-sudo apt install openssh-server
-sudo systemctl status ssh
+apt install openssh-server
+systemctl status ssh
 
 ssh radekj@192.168.0.105
 
-sudo systemctl start/restart/stop/disable/enable ssh
+systemctl start/restart/stop/disable/enable ssh
 ```
 
 ### on client:
