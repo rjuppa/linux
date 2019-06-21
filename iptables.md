@@ -1,58 +1,58 @@
 ### iptables
 ```
-sudo apt-get install iptables
+apt-get install iptables
 
-sudo iptables -A  -i <interface> -p <(tcp/udp) > -s <source> --dport <port>  -j <target>
+iptables -A  -i <interface> -p <(tcp/udp) > -s <source> --dport <port>  -j <target>
 targets: ACCEPT, DROP and RETURN
 chains: INPUT, FORWARD, OUTPUT
 
 # accept connections
-sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 iptables -A INPUT -p tcp -s 147.228.0.0/16 --dport 22 -j ACCEPT
-sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 
 # samba
-sudo iptables -A INPUT -p udp --dport 137 -j ACCEPT
-sudo iptables -A INPUT -p udp --dport 138 -j ACCEPT
-sudo iptables -A INPUT -p tcp --dport 139 -j ACCEPT
-sudo iptables -A INPUT -p tcp --dport 445 -j ACCEPT
+iptables -A INPUT -p udp --dport 137 -j ACCEPT
+iptables -A INPUT -p udp --dport 138 -j ACCEPT
+iptables -A INPUT -p tcp --dport 139 -j ACCEPT
+iptables -A INPUT -p tcp --dport 445 -j ACCEPT
 
 # deny connections
-sudo iptables -A INPUT -p tcp --dport 22 -j DROP
-sudo iptables -A INPUT -s 192.168.1.3 -j DROP
-sudo iptables -A INPUT -j DROP		# Dropping all other traffic
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -s 192.168.1.3 -j ACCEPT
+iptables -A INPUT -j DROP		# Dropping all other traffic
 
-sudo iptables -F 	# delete all rules
+iptables -F 	# delete all rules
 
-sudo iptables -L --line-numbers 	# list rules
-sudo iptables -D INPUT 3 	# delete line no.3
+iptables -L --line-numbers 	# list rules
+iptables -D INPUT 3 	# delete line no.3
 
-sudo /sbin/iptables-save 	# save changes
+/sbin/iptables-save 	# save changes
 
 ```
 
 ### ufw
 ```
-sudo apt install ufw
-sudo ufw status verbose
+apt install ufw
+ufw status verbose
 /etc/default/ufw
 
-sudo ufw app list 	# list of profiles
-sudo ufw allow OpenSSH
-sudo ufw allow Samba
-sudo ufw allow 2222/tcp
-sudo ufw allow http
-sudo ufw allow 80/tcp
-sudo ufw allow 7100:7200/tcp
-sudo ufw allow 7100:7200/udp
-sudo ufw allow from 64.63.62.61
-sudo ufw allow from 64.63.62.61 to any port 22
+ufw app list 	# list of profiles
+ufw allow OpenSSH
+ufw allow Samba
+ufw allow 2222/tcp
+ufw allow http
+ufw allow 80/tcp
+ufw allow 7100:7200/tcp
+ufw allow 7100:7200/udp
+ufw allow from 64.63.62.61
+ufw allow from 64.63.62.61 to any port 22
 
-sudo ufw enable/disable
-sudo ufw deny from 23.24.25.0/24
-sudo ufw status numbered
-sudo ufw delete 2
+ufw enable/disable
+ufw deny from 23.24.25.0/24
+ufw status numbered
+ufw delete 2
 ```
 
 
