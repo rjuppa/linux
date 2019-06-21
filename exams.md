@@ -8,6 +8,26 @@
 
 
 ```
+apt install curl wget apt-transport-https dirmngr
+
+#------------------------------------------------------------------------------#
+#                   OFFICIAL DEBIAN REPOS                    
+#------------------------------------------------------------------------------#
+
+###### Debian Main Repos
+deb http://deb.debian.org/debian/ oldstable main contrib non-free
+deb-src http://deb.debian.org/debian/ oldstable main contrib non-free
+
+deb http://deb.debian.org/debian/ oldstable-updates main contrib non-free
+deb-src http://deb.debian.org/debian/ oldstable-updates main contrib non-free
+
+deb http://deb.debian.org/debian-security oldstable/updates main
+deb-src http://deb.debian.org/debian-security oldstable/updates main
+
+deb http://ftp.debian.org/debian jessie-backports main
+deb-src http://ftp.debian.org/debian jessie-backports main
+
+
 apt install vim mc iptables curl cron
 
 apt install mdadm
