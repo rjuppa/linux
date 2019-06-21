@@ -5,6 +5,7 @@ apt-get install mysql-server
 /etc/init.d/mysql status
 /etc/mysql/
 /var/lib/mysql
+vim /etc/mysql/mysql.conf.d/mysqld.cnf 
 
 mysql
 mysql>SELECT user,authentication_string,plugin,host FROM mysql.user;
