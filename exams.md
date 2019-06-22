@@ -56,6 +56,32 @@ apt install nginx
 apt install pound
 
 
+/etc/exports
+/etc/samba/smb.conf
+
+/etc/bind/named.conf.local 
+/etc/bind/db.test.spos
+/etc/bind/db.192.168.0
+
+/etc/apache2/sites-available/test.spos.conf
+/etc/apache2/sites-available/test.spos.ssl.conf
+/var/www/test.spos/index.html
+/var/www/test.spos/index.php
+/etc/nginx/sites-available/test.spos
+/etc/nginx/sites-available/test.spos.ssl
+/etc/postgresql/10/main/pg_hba.conf
+
+/etc/fstab
+/proc/partitions
+/proc/mdstat
+
+/etc/postfix/main.cf
+/etc/aliases
+/etc/dovecot/dovecot.conf
+/etc/dovecot/conf.d/10-mail.conf
+/etc/dovecot/conf.d/10-ssl.conf
+
+
 ufw status
 iptables -L
 df -h
