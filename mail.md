@@ -52,6 +52,8 @@ newaliases
 ```
 apt-get install dovecot-pop3d
 apt-get install dovecot-imapd
+netstat -tulpn | grep :143
+netstat -tulpn | grep :110
 
 vim /etc/dovecot/dovecot.conf
 protocols = imap pop3 imaps pop3s
