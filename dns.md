@@ -14,6 +14,7 @@ whois
 ### bind
 ```
 port 53
+netstat -tulpn | grep :53
 apt-get install bind9 dnsutils
 service bind9 start|stop|restart
 
