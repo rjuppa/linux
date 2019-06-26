@@ -140,7 +140,7 @@ telnet localhost 143
 5 FETCH 1 BODY[]
 6 LOGOUT
 
-
+netstat -tulpn | grep :143
 openssl s_client -connect localhost:995
 
 SMTP 25; POP3 110; IMAP 143; IMAPS 993; POP3S 995
