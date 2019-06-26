@@ -130,9 +130,10 @@ mount -t cifs //host_name/VIEWER_SHARE -o username=username,password=password /l
 
 vim /etc/fstab	# add line
 //localhost/public /mnt/samba      cifs   defaults 0 0
-
+netstat -tulpn | grep :138
 
 NFS
+netstat -tulpn | grep :111
 mkdir /var/nfs/public -p
 mkdir /mnt/share -p
 chown nobody:nogroup /var/nfs/public
