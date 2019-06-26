@@ -3,6 +3,8 @@
 apt install nfs-common nfs-server nfs-kernel-server
 vim /etc/fstab
 ports: 111, 2049 both
+netstat -tulpn | grep :111
+showmount -e 192.168.0.106
 
 # autentikace mezi systemy se prenasi podle uid/gid
 addgroup --gid 6000 nfs_group
@@ -20,8 +22,6 @@ lsblk
 mount /dev/md127 /mnt/raid5
 /etc/init.d/nfs-kernel-server start
 exportfs -r
-
-showmount -e 192.168.0.106
 
 # client: 
 addgroup --gid 6000 nfs_share
@@ -44,6 +44,7 @@ service smbd restart
 
 TCP ports 139 and 445
 UDP ports 137 and 138
+netstat -tulpn | grep :139
 
 addgroup --gid 6001 cifs
 usermod -G cifs radekj
