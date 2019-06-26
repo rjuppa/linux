@@ -174,9 +174,9 @@ UUID=fcde9bb7-4311-41e2-986a-647a672ebf83       /mnt/example    ext4    defaults
 MDADM RAID
 cat /proc/mdstat
 mdadm --detail /dev/md127
-sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/loop18 /dev/loop19
-sudo mdadm --create /dev/md1 -l5  -n5 /dev/sda1 /dev/sdb1 /dev/sdc1	/dev/sdd1 /dev/sde1
-sudo mdadm --create /dev/md1 -l5  -n3 /dev/sda1 /dev/sdb1 missing
+mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/loop18 /dev/loop19
+mdadm --create /dev/md1 -l5  -n5 /dev/sda1 /dev/sdb1 /dev/sdc1	/dev/sdd1 /dev/sde1
+mdadm --create /dev/md1 -l5  -n3 /dev/sda1 /dev/sdb1 missing
 mdadm --remove /dev/md0 /dev/sda1
 # /etc/fstab
 LABEL=seagate_2tb_usb     /media/usb    ext3   defaults 0 0
@@ -189,39 +189,12 @@ mv server.key server.key.secure
 mv server.key.insecure server.key
 openssl req -new -key server.key -out server.csr
 openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-sudo cp server.crt /etc/ssl/certs
-sudo cp server.key /etc/ssl/private
+cp server.crt /etc/ssl/certs
+cp server.key /etc/ssl/private
 
 use:
 ssl_cert_file = /etc/ssl/certs/server.crt 
 ssl_key_file = /etc/ssl/private/server.key
 
-
-
-
-touch /etc/exports
-touch /etc/samba/smb.conf
-
-touch /etc/bind/named.conf.local 
-touch /etc/bind/db.test.spos
-touch /etc/bind/db.192.168.0
-
-touch /etc/apache2/sites-available/test.spos.conf
-touch /etc/apache2/sites-available/test.spos.ssl.conf
-touch /var/www/test.spos/index.html
-touch /var/www/test.spos/index.php
-touch /etc/nginx/sites-available/test.spos
-touch /etc/nginx/sites-available/test.spos.ssl
-touch /etc/postgresql/10/main/pg_hba.conf
-
-touch /etc/fstab
-touch /proc/partitions
-touch /proc/mdstat
-
-touch /etc/postfix/main.cf
-touch /etc/aliases
-touch /etc/dovecot/dovecot.conf
-touch /etc/dovecot/conf.d/10-mail.conf
-touch /etc/dovecot/conf.d/10-ssl.conf
 
 ```
