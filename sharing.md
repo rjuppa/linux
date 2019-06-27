@@ -11,7 +11,7 @@ addgroup --gid 6000 nfs_group
 adduser --gid 6000 --uid 6000 nfs_share
 
 /etc/exports:
-/mnt/raid5 192.168.0.0/24(rw,all_squash,nfs_shareuid=6000,nfs_groupgid=6000)
+/mnt/raid5 192.168.0.0/24(rw,all_squash,anonuid=6000,anongid=6000)
 
 usermod -a -G user1 grp1
 gpasswd -d user1 grp1
@@ -30,6 +30,8 @@ mount 192.168.0.106:/mnt/raid5 /mnt/raid5
 
 # /etc/fstab
 192.168.0.106:/mnt/raid5	/mnt/raid5	nfs	defaults	0	0
+
+showmount -e 192.168.0.106
 
 mount -t nfs /dev/vdb1 /mnt
 mount /mnt/nfs
