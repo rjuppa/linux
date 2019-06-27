@@ -89,6 +89,7 @@ lsblk
 dig -t A test.spos @127.0.0.1
 ls -l ~/.ssh/id_*
 
+tail /var/log/syslog -n 20
 
 
 ls -l ~/.ssh/id_*
