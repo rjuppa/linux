@@ -87,12 +87,13 @@ openssl req -new -key server.key -out server.csr
 cp server.key server.key.org
 openssl rsa -in server.key.org -out server.key
 openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-- vytvoří soubory server.crt a server.key (stejné jako pro SSL u webu)
+cp server.crt /etc/ssl
+cp server.key /etc/ssl
 
 /etc/dovecot/conf.d/10-ssl.conf
 	ssl = yes
-	ssl_cert = </etc/ssl/server.crt
-	ssl_key = </etc/ssl/server.key
+	ssl_cert = /etc/ssl/server.crt
+	ssl_key = /etc/ssl/server.key
 
 ~/.muttrc (v home adresáři uživatele, ze kterého se přihlašujeme)
 	- pro imap
