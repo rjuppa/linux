@@ -53,6 +53,8 @@ openssl req -new -key server.key -out server.csr
 cp server.key server.key.org
 openssl rsa -in server.key.org -out server.key
 openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+cp server.crt /etc/ssl
+cp server.key /etc/ssl
 
 curl -k https://www1.test.spos
 Vytvoření umělého provozu pomocí nástroje curl (./test http://spos-name.spos 0.001):
