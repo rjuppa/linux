@@ -133,6 +133,7 @@ vim /etc/fstab	# add line
 netstat -tulpn | grep :138
 
 NFS
+showmount -e 192.168.0.106
 netstat -tulpn | grep :111
 mkdir /var/nfs/public -p
 mkdir /mnt/share -p
