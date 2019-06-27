@@ -64,6 +64,15 @@ ssl_disable = no
 ssl_cert_file = /etc/ssl/server.crt 
 ssl_key_file = /etc/ssl/server.key
 
+Čtení pošty šifrovaně přes IMAP (nebo POP3), mutt:
+openssl genrsa -des3 -out server.key 1024
+openssl req -new -key server.key -out server.csr
+cp server.key server.key.org
+openssl rsa -in server.key.org -out server.key
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+cp server.crt /etc/ssl
+cp server.key /etc/ssl
+
 /etc/dovecot/conf.d/10-mail.conf
 mail_location = mbox:~/mail:INBOX=/var/mail/%u
 mail_location = maildir:~/Maildir
@@ -75,26 +84,15 @@ chmod -R 700 /home/john/Maildir
 
 /etc/init.d/dovecot start
 /etc/init.d/postfix start
+```
 
 
-Čtení pošty šifrovaně přes IMAP (nebo POP3), mutt:
-10-mail.conf - stejně jako pro telnet 
-cd /etc/dovecot
-mkdir certs
-cd certs
-openssl genrsa -des3 -out server.key 1024
-openssl req -new -key server.key -out server.csr
-cp server.key server.key.org
-openssl rsa -in server.key.org -out server.key
-openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-cp server.crt /etc/ssl
-cp server.key /etc/ssl
+### MUTT - prohlížení mailů
+```
+apt-get install mutt
+mutt -f /home/user2/Maildir
 
-/etc/dovecot/conf.d/10-ssl.conf
-	ssl = yes
-	ssl_cert = /etc/ssl/server.crt
-	ssl_key = /etc/ssl/server.key
-
+# pres IMAP
 ~/.muttrc (v home adresáři uživatele, ze kterého se přihlašujeme)
 	- pro imap
 	set folder = imap://user:pass@localhost:143/
@@ -103,20 +101,6 @@ cp server.key /etc/ssl
 	set folder = pop://user:pass@localhost:110/
 	set spoolfile = pop://user:pass@localhost:110/
 user - uživatel, na kterého se přihlašujeme
-```
-
-
-### MUTT - prohlížení mailů
-```
-apt-get install mutt
-mutt -f Maildir/
-mutt -f /home/user2/Maildir
-mutt
-
-# pres IMAP
-~/.muttrc:
-set folder = imap://jmeno:heslo@localhost:143/
-set spoolfile = imap://jmeno:heslo@localhost:143/
 chmod 777 .muttrc
 
 ```
