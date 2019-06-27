@@ -113,7 +113,7 @@ iptables-save > /etc/network/iptables.conf
 ufw enable
 
 
-SAMBA
+SAMBA =====================
 mkdir -p /mnt/samba
 chgrp sambashare /mnt/samba
 
@@ -133,8 +133,7 @@ vim /etc/fstab	# add line
 //localhost/public /mnt/samba      cifs   defaults 0 0
 netstat -tulpn | grep :138
 
-NFS
-showmount -e 192.168.0.106
+NFS =====================
 netstat -tulpn | grep :111
 mkdir /var/nfs/public -p
 mkdir /mnt/share -p
@@ -150,8 +149,9 @@ systemctl restart nfs-kernel-server
 # /etc/fstab
 192.168.0.106:/var/nfs/public	/mnt/share	nfs	defaults	0	0
 
+showmount -e 192.168.0.106
 
-DNS
+DNS ==========================
 dig -t A test.spos @127.0.0.1
 vim /etc/bind/named.conf.local 
 vim /etc/bind/db.test.spos
@@ -159,7 +159,7 @@ service bind9 restart
 
 
 
-LVM
+LVM ====================
 pvcreate /dev/vdd
 pvdisplay /dev/vdd
 vgcreate vg_data /dev/vdd
@@ -174,7 +174,7 @@ mkdir -p /mnt/example
 UUID=fcde9bb7-4311-41e2-986a-647a672ebf83       /mnt/example    ext4    defaults        0       2
 
 
-MDADM RAID
+MDADM RAID =================
 cat /proc/mdstat
 mdadm --detail /dev/md127
 mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/loop18 /dev/loop19
@@ -185,19 +185,19 @@ mdadm --remove /dev/md0 /dev/sda1
 LABEL=seagate_2tb_usb     /media/usb    ext3   defaults 0 0
 
 
-SSL CERT
+SSL CERT =================
 openssl genrsa -des3 -out server.key 2048
 openssl rsa -in server.key -out server.key.insecure
 mv server.key server.key.secure
 mv server.key.insecure server.key
 openssl req -new -key server.key -out server.csr
 openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-cp server.crt /etc/ssl/certs
-cp server.key /etc/ssl/private
+cp server.crt /etc/ssl
+cp server.key /etc/ssl
 
 use:
-ssl_cert_file = /etc/ssl/certs/server.crt 
-ssl_key_file = /etc/ssl/private/server.key
+ssl_cert_file = /etc/ssl/server.crt 
+ssl_key_file = /etc/ssl//server.key
 
 
 ```
