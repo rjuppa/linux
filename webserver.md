@@ -1,8 +1,8 @@
 ### Apache
 ```
 posts: 80, 443               // netstat -tulpn | grep :8080        <- Who listen on :8080
-apt-get install apache2
-apt-get install curl
+apt -y install apache2
+apt -y install curl
 
 service apache2 restart
 #a2enmod ssl
@@ -75,7 +75,7 @@ done
 
 ### PHP
 ```
-apt install php libapache2-mod-php php-mysql
+apt -y install php libapache2-mod-php php-mysql
 
 vim /etc/php/7.2/apache2/php.ini
 cat /etc/php/7.2/cli/php.ini
@@ -116,7 +116,7 @@ php_admin_value session.save_path /var/www/www.test.spos/phptmp
 
 ### NGINX
 ```
-apt-get install nginx - nesmí nic poslouchat na portu 80
+apt -y install nginx      - nesmí nic poslouchat na portu 80
 
 vim /etc/nginx/sites-available/test.spos
 server {
@@ -190,7 +190,7 @@ www	IN	A	147.228.67.44
 
 ### Pound
 ```
-apt-get install pound
+apt -y install pound
 /etc/pound/pound.cfg
 	Service
 		HeadRequire "Host:.*www.test.spos"
