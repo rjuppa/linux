@@ -1,6 +1,6 @@
 ### NFS
 ```
-apt install nfs-common nfs-server nfs-kernel-server
+apt -y install nfs-common nfs-server nfs-kernel-server
 vim /etc/fstab
 ports: 111, 2049 both
 netstat -tulpn | grep :111
@@ -40,7 +40,7 @@ fuser -m DIRECTORY # kdo tam ma neco otevreneho
 
 ### SAMBA
 ```
-apt install samba smbclient cifs-utils
+apt -y install samba smbclient cifs-utils
 vim /etc/samba/smb.conf
 service smbd restart
 
