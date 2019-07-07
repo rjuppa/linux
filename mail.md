@@ -1,6 +1,6 @@
 ### POSTFIX
 ```
-apt-get install postfix
+apt -y install postfix telnet
 postfix status
 service postfix restart
 less /var/log/mail.log
@@ -50,8 +50,8 @@ newaliases
 
 ### DOVECOT
 ```
-apt-get install dovecot-pop3d
-apt-get install dovecot-imapd
+apt -y install dovecot-pop3d telnet
+apt -y install dovecot-imapd
 netstat -tulpn | grep :143
 netstat -tulpn | grep :110
 
