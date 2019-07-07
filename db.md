@@ -1,7 +1,7 @@
 ### MySql
 ```
 netstat -tulpn | grep :3306
-apt-get install mysql-server
+apt -y install mysql-server
 /etc/init.d/mysql status
 /etc/mysql/
 /var/lib/mysql
@@ -95,8 +95,8 @@ $conn->close();
 ### PostgreSQL
 ```
 netstat -tulpn | grep :5432
-apt install postgresql postgresql-contrib
-apt install php-pgsql 
+apt -y install postgresql postgresql-contrib
+apt -y install php-pgsql 
 /etc/init.d/postgresql restart
 sudo -i -u postgres
 
