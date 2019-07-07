@@ -10,7 +10,7 @@
 ```
 update-alternatives --config editor
 
-apt install curl wget apt-transport-https dirmngr
+apt -y install curl wget apt-transport-https dirmngr
 
 cat /etc/apt/sources.list 
 #------------------------------------------------------------------------------#
@@ -31,29 +31,29 @@ deb http://ftp.debian.org/debian jessie-backports main
 deb-src http://ftp.debian.org/debian jessie-backports main
 
 
-apt install vim mc iptables curl cron
+apt -y install vim mc iptables curl cron
 
-apt install mdadm
-apt install lvm2  
-apt install nfs-common nfs-server nfs-kernel-server
-apt install samba smbclient cifs-utils
+apt -y install mdadm
+apt -y install lvm2  
+apt -y install nfs-common nfs-server nfs-kernel-server
+apt -y install samba smbclient cifs-utils
 
-apt install bind9 dnsutils
-apt install ufw fail2ban
+apt -y install bind9 dnsutils
+apt -y install ufw fail2ban
 
-apt install postfix
-apt install dovecot-pop3d
-apt install dovecot-imapd
-apt install libssl-dev
-apt install mutt
+apt -y install postfix
+apt -y install dovecot-pop3d
+apt -y install dovecot-imapd
+apt -y install libssl-dev
+apt -y install mutt
 
-apt install mysql-server
-apt install postgresql postgresql-contrib
-apt install php-pgsql 
-apt install apache2
-apt install php libapache2-mod-php php-mcrypt php-mysql
-apt install nginx
-apt install pound
+apt -y install mysql-server
+apt -y install postgresql postgresql-contrib
+apt -y install php-pgsql 
+apt -y install apache2
+apt -y install php libapache2-mod-php php-mcrypt php-mysql
+apt -y install nginx
+apt -y install pound
 
 
 /etc/exports
