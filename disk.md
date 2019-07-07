@@ -17,9 +17,9 @@ sfdisk -s
 sfdisk -d /dev/sda | sfdisk /dev/sdb
 
 lsblk
-sudo parted -l
-sudo parted /dev/vdc
-sudo fdisk /dev/sda
+parted -l
+parted /dev/vdc
+fdisk /dev/sda
 
 # format
 mkfs.ext4 /dev/sda1
@@ -28,26 +28,26 @@ mkswap /dev/sda3
 swapon /dev/sda3
 
 # USB
-sudo mkdir -p /media/usb
-sudo mount /dev/sdd1 /media/usb
+mkdir -p /media/usb
+mount /dev/sdd1 /media/usb
 
-sudo mkdir /media/iso
-sudo mount /path/to/image.iso /mnt/iso -o loop
+mkdir /media/iso
+mount /path/to/image.iso /mnt/iso -o loop
 
 umount -l (-f) dir  # lazy
 
 # vyrobim si loop file devices
 # udelam z nich raid1 disk
 # a ten namontuju
-sudo dd if=/dev/zero of=/mnt/d1 bs=1M count=1024
-sudo losetup /dev/loop17 /mnt/d1
+dd if=/dev/zero of=/mnt/d1 bs=1M count=1024
+losetup /dev/loop17 /mnt/d1
 # sudo mkfs.ext4 /dev/loop17   <- formatovani
 
 ```
 
 ### SSHFS
 ```
-sudo apt install sshfs
+apt -y install sshfs
 sshfs [user1@]host:[remote_directory] mountpoint [options]
 mkdir ~/mount_point
 sshfs user1@192.168.121.121:/home/user1 /home/user1/mount_point
@@ -55,7 +55,7 @@ sshfs user1@192.168.121.121:/home/user1 /home/user1/mount_point
 
 ### RAID
 ```
-apt install mdadm
+apt -y install mdadm
 cat /proc/mdstat
 mdadm --detail /dev/md127
 
@@ -88,7 +88,7 @@ echo "ahoj!" > /mnt/md0/test.txt
 
 ### LVM
 ```
-apt-get install lvm2  
+apt -y install lvm2  
 lvs
 lvscan
 
