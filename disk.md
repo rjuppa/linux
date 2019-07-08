@@ -92,20 +92,16 @@ apt -y install lvm2
 lvs
 lvscan
 
-pvdisplay /dev/sda
-vgcreate data /dev/sda
-vgdisplay data
+pvcreate /dev/sdb1
+vgcreate data /dev/sdb1
 lvcreate --name video --size 20M data
-mkfs.ext3 /dev/data/video
-mount /dev/data/video /mnt
-umount /mnt
+mkfs.ext4 /dev/data/video
+e2label /dev/data/video video
+mount /dev/data/video /mnt/video
+
+lvdisplay
+umount /mnt/video
 lvremove /dev/jmeno_skupiny/jmeno_oddilu
-
-
-lvcreate -n lv1 -L 10G vg1
-mkfs.ext4 /dev/vg1/lv1
-mount /dev/vg1/lv1 /media/files
-(pvcreate, vgcreate, vgs)
 
 # swap
 fallocate -l 1G /swapfile
