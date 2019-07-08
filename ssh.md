@@ -5,7 +5,8 @@ systemctl status ssh
 
 ssh radekj@192.168.0.105
 
-systemctl start/restart/stop/disable/enable ssh
+service ssh status
+systemctl [start/restart/stop/disable/enable] ssh
 ```
 
 ### on client:
