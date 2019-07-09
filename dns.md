@@ -51,6 +51,11 @@ ns1	IN	A	192.168.0.106
 @       IN      MX      10      mail
 
 ------------------------------
+zone "0.168.192.in-addr.arpa" {
+        type master;
+        file "/etc/bind/db.192.168.0";
+};
+
 /etc/bind/db.192.168.0			// reverzni zaznam
 $ORIGIN 0.168.192.in-addr.arpa.
 $TTL	604800
