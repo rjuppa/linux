@@ -66,4 +66,26 @@ $TTL	604800
 
 dig -x 192.168.0.106 @127.0.0.1
 
+VIEWS:
+acl local {
+   192.168.1.0/24;
+   localhost;
+};
+view "localnetwork" {
+ match-clients { local; 192.168.0.0/24; }; 
+  recursion yes;
+  zone "jindra.spos." {
+    type master;
+    file  "/etc/bind/local/db.jindra.spos"
+  };
+};
+
+view "publicnetwork"{
+match-clients {"any"; }; 
+  recursion no;
+  zone "jindra.spos." {
+    type master;
+    file  "/etc/bind/public/db.jindra.spos"
+  };
+};
 ```
