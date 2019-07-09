@@ -62,6 +62,13 @@ ufw enable/disable
 ufw deny from 23.24.25.0/24
 ufw status numbered
 ufw delete 2
+
+
+ufw reset
+ufw allow 22/tcp
+ufw allow from 192.168.0.0/24 to any port 110
+ufw default deny
+ufw enable
 ```
 
 
