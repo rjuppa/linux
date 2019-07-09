@@ -28,7 +28,7 @@ iptables -F 	# delete all rules
 iptables -L --line-numbers 	# list rules
 iptables -D INPUT 3 	# delete line no.3
 
-/sbin/iptables-save 	# save changes
+/sbin/iptables-save > /root/ip.txt     	# save changes
 
 BASIC SECURITY ====================
 ssh root@147.228.67.47
