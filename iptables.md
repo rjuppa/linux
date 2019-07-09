@@ -19,9 +19,8 @@ iptables -A INPUT -p tcp --dport 139 -j ACCEPT
 iptables -A INPUT -p tcp --dport 445 -j ACCEPT
 
 # deny connections
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-iptables -A INPUT -s 192.168.1.3 -j ACCEPT
-iptables -A INPUT -j DROP		# Dropping all other traffic
+iptables -A INPUT -p tcp -s 147.228.0.0/16 --dport 22 -j ACCEPT
+iptables -A INPUT -j DROP		       # Dropping all other traffic
 
 iptables -F 	# delete all rules
 
