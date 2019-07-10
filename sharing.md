@@ -10,26 +10,26 @@ showmount -e 192.168.0.106
 addgroup --gid 6000 nfs_group
 adduser --gid 6000 --uid 6000 nfs_share
 
+mkdir /mnt/share
+chown nfs_share:nfs_group /mnt/share
+chmod -R 770 /mnt/share
+
 /etc/exports:
-/mnt/raid5 192.168.0.0/24(rw,all_squash,anonuid=6000,anongid=6000)
-
-usermod -a -G user1 grp1
-gpasswd -d user1 grp1
-
-chown nobody:nogroup /mnt/raid5
-chmod -R 770 /mnt/raid5/
-lsblk
-mount /dev/md127 /mnt/raid5
-/etc/init.d/nfs-kernel-server start
+/mnt/share 192.168.0.4/24(rw,all_squash,anonuid=6000,anongid=6000)
 exportfs -r
 
-# client: 
-addgroup --gid 6000 nfs_share
-adduser --gid 6000 --uid 6000 nfs_share
-mount 192.168.0.106:/mnt/raid5 /mnt/raid5
+service nfs-kernel-server restart
+showmount -e 192.168.0.104      -> /mnt/share 192.168.0.104/24
+
+OVERENI:
+mkdir /mnt/nfs
+mount -t nfs 192.168.0.104:/mnt/share /mnt/nfs
+echo "kuk" > /mnt/nfs/kuk.txt
+ls -l /mnt/nfs
+  -rw-r--r-- 1 nfs_share nfs_group 4 Jul  8 17:40 kuk.txt
 
 # /etc/fstab
-192.168.0.106:/mnt/raid5	/mnt/raid5	nfs	defaults	0	0
+192.168.0.106:/mnt/share	/mnt/nfs	nfs	defaults	0	0
 
 showmount -e 192.168.0.106
 
