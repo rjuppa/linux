@@ -47,27 +47,30 @@ service smbd restart
 TCP ports 139 and 445
 UDP ports 137 and 138
 netstat -tulpn | grep :139
+pdbedit -w -L  (list od samba users)
 
-addgroup --gid 6001 cifs
-usermod -G cifs radekj
+--------------------
+adduser sambator
+smbpasswd -a sambator
+usermod -a -G sambashare sambator
+mkdir /mnt/samba
+chown sambator:sambashare /mnt/samba
+chmod 2770 /mnt/samba
+vim /etc/samba/smb.conf 
+[SHARED]
+   path = /mnt/samba
+   browsable = yes
+   guest ok = yes
+   writable = yes
 
-mkdir /samba
-chgrp sambashare /samba
-mkdir /samba/radek_smb
+service smbd restart
+service smbd status
 
-useradd -M -d /samba/radek_smb -s /usr/sbin/nologin -G sambashare radek_smb
-chown radek_smb:sambashare /samba/radek_smb
-chmod 2770 /samba/radek_smb
-smbpasswd -a radek_smb
-smbpasswd -e radek_smb
-
-useradd -M -d /samba/users -s /usr/sbin/nologin -G sambashare sadmin
-mkdir /samba/users
-chown sadmin:sambashare /samba/users
-smbpasswd -a sadmin
-smbpasswd -e sadmin
-chmod 2770 /samba/users
-pdbedit -w -L
+OVERENI
+mkdir /mnt/extra
+mount -t cifs //localhost/SHARED /mnt/extra -o username=sambator
+echo "aaa" > /mnt/extra/aaa.txt
+ls -l /mnt/extra/
 
 [users]
     path = /samba/users
