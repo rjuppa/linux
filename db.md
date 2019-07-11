@@ -2,12 +2,13 @@
 ```
 netstat -tulpn | grep :3306
 apt -y install mysql-server
-/etc/init.d/mysql status
+service mysql status
 /etc/mysql/
 /var/lib/mysql
-vim /etc/mysql/mysql.conf.d/mysqld.cnf 
+vim /etc/mysql/my.cnf 
 
 mysql
+mysql -u root -pr
 mysql>SELECT user,authentication_string,plugin,host FROM mysql.user;
 mysql>ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'r';
