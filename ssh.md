@@ -5,6 +5,10 @@ systemctl status ssh
 
 ssh radekj@192.168.0.105
 
+# ssh-agent can remenber passphrase
+ssh-agent -s
+ssh-add
+
 service ssh status
 systemctl [start/restart/stop/disable/enable] ssh
 ```
@@ -19,6 +23,10 @@ ssh-keygen -t rsa -b 4096 -C "radekj@192.168.0.105"
 
 # copy key to server
 ssh-copy-id radekj@192.168.0.105
+
+# ssh-agent can remenber passphrase
+ssh-agent -s
+ssh-add
 
 # Disabling SSH Password
 /etc/ssh/sshd_config
