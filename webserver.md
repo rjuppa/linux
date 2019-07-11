@@ -29,7 +29,8 @@ chgrp -R www-data /var/www/test.spos/
 a2enmod test.spos
 service apache2 reload
 
-<VirtualHost *:80>
+Listen 8080
+<VirtualHost *:8080>
     ServerName test.spos
     ServerAlias test.spos
     DocumentRoot "/var/www/test.spos/"
