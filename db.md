@@ -59,7 +59,7 @@ INSERT INTO skore(firstname, lastname, email, reg_date) VALUES('Radek', 's', 'em
 echo "START"
 for i in {2..50};
 do
-   echo "INSERT INTO skore(firstname, lastname, email, reg_date) VALUES('$(pwgen 5 1)', 's', 'em@aaa.cz', NOW());" | mysql -u spos - spos -h 10.0.0.1 db01
+   echo "INSERT INTO skore(firstname, lastname, email, reg_date) VALUES('$(pwgen 5 1)', 's', 'em@aaa.cz', NOW());" | mysql -u spos -pspos -h 10.0.0.1 db01
    echo $i
 done
 
