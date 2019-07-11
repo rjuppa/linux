@@ -76,7 +76,11 @@ done
 
 ### PHP
 ```
-apt -y install php libapache2-mod-php php-mysql
+apt -y install ca-certificates apt-transport-https 
+wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
+echo "deb https://packages.sury.org/php/ jessie main" | tee /etc/apt/sources.list.d/php.list
+apt update
+apt -y install php php-mysql libapache2-mod-php
 
 vim /etc/php/7.2/apache2/php.ini
 cat /etc/php/7.2/cli/php.ini
