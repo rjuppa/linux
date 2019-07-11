@@ -47,17 +47,20 @@ GRANT ALL PRIVILEGES ON db01.* to 'db01'@'localhost' IDENTIFIED BY 'xxx';
 FLUSH PRIVILEGES;
 CREATE TABLE skore(
    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-   firstname VARCHAR(30) NOT NULL,
-   lastname VARCHAR(30) NOT NULL,
+   firstname VARCHAR(30) NULL,
+   lastname VARCHAR(30) NULL,
    email VARCHAR(50),
    reg_date TIMESTAMP
 );
 INSERT INTO table01(id, firstname, lastname,email,reg_date) VALUES(1,'Radek','Juppa','rjuppa@gmail.com', NOW());
-INSERT INTO skore(jmeno, datum, score) VALUES('Radek', NOW(), 1);
+INSERT INTO skore(firstname, lastname, email, reg_date) VALUES('Radek', 's', 'em@aaa.cz', NOW());
 
 #! /bin/bash
-for i in `seq 1 50`; do
-   echo "INSERT INTO table01 (firstname, reg_date) VALUES ('$(pwgen 5 1)',now())"          # | mysql db01
+echo "START"
+for i in {2..50};
+do
+   echo "INSERT INTO skore(firstname, lastname, email, reg_date) VALUES('$(pwgen 5 1)', 's', 'em@aaa.cz', NOW());" | mysql -u spos - spos -h 10.0.0.1 db01
+   echo $i
 done
 
 <?php
