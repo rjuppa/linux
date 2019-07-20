@@ -60,6 +60,7 @@ cat /proc/mdstat
 mdadm --detail /dev/md127
 
 STOP RAID:
+umount /mnt/md0
 mdadm --stop /dev/md0
 # mdadm --remove /dev/md0
 mdadm --zero-superblock /dev/vdb /dev/vdc /dev/vdd
