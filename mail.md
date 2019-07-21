@@ -13,6 +13,7 @@ usermod -G mail user1
 mail    IN      A       192.168.0.106
 @       IN      MX 10   mail
 
+cat /etc/mailname  (vypise mail.test.spos)
 /etc/postfix/main.cf:
 myorigin = test.spos
 myhostname = test.spos
