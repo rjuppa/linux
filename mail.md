@@ -67,12 +67,12 @@ mail_location = maildir:~/Maildir
 vim /etc/dovecot/conf.d/10-ssl.conf 
 ssl= yes | no | required
 ssl_disable = no
-ssl_cert_file = /etc/ssl/server.crt 
-ssl_key_file = /etc/ssl/server.key
+ssl_cert_file = </etc/ssl/server.crt 
+ssl_key_file = </etc/ssl/server.key
 
 # nebo pouzit
-ssl_cert=/etc/ssl/certs/ssl-cert-snakeoil.pem
-ssl_key=/etc/ssl/private/ssl-cert-snakeoil.key
+ssl_cert = </etc/ssl/certs/ssl-cert-snakeoil.pem
+ssl_key = </etc/ssl/private/ssl-cert-snakeoil.key
 
 Čtení pošty šifrovaně přes IMAP (nebo POP3), mutt:
 openssl genrsa -des3 -out server.key 1024
