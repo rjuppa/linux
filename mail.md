@@ -66,8 +66,8 @@ ssl_cert_file = /etc/ssl/server.crt
 ssl_key_file = /etc/ssl/server.key
 
 # nebo pouzit
-# ssl_cert=/etc/ssl/certs/ssl-cert-snakeoil.pem
-# ssl_key=/etc/ssl/private/ssl-cert-snakeoil.key
+ssl_cert=/etc/ssl/certs/ssl-cert-snakeoil.pem
+ssl_key=/etc/ssl/private/ssl-cert-snakeoil.key
 
 Čtení pošty šifrovaně přes IMAP (nebo POP3), mutt:
 openssl genrsa -des3 -out server.key 1024
@@ -132,6 +132,7 @@ telnet localhost 143
 
 netstat -tulpn | grep :143
 openssl s_client -connect localhost:995
+openssl s_client -connect mail.test.spos:993
 
 SMTP 25; POP3 110; IMAP 143; IMAPS 993; POP3S 995
 ```
