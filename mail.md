@@ -1,6 +1,6 @@
 ### POSTFIX
 ```
-apt -y install postfix telnet
+apt -y install postfix telnet mutt
 postfix status
 service postfix restart
 less /var/log/mail.log
