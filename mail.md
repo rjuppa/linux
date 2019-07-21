@@ -57,7 +57,12 @@ netstat -tulpn | grep :143
 netstat -tulpn | grep :110
 
 vim /etc/dovecot/dovecot.conf
-protocols = imap pop3 imaps pop3s
+protocols = imap pop3
+listen = *, ::
+
+/etc/dovecot/conf.d/10-mail.conf
+mail_location = mbox:~/mail:INBOX=/var/mail/%u
+mail_location = maildir:~/Maildir
 
 vim /etc/dovecot/conf.d/10-ssl.conf 
 ssl= yes | no | required
@@ -78,17 +83,13 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 cp server.crt /etc/ssl
 cp server.key /etc/ssl
 
-/etc/dovecot/conf.d/10-mail.conf
-mail_location = mbox:~/mail:INBOX=/var/mail/%u
-mail_location = maildir:~/Maildir
-
 useradd -m -s /bin/bash john
 mkdir /home/john/Maildir
 chown john:john /home/john/Maildir
 chmod -R 700 /home/john/Maildir 
 
-/etc/init.d/dovecot start
-/etc/init.d/postfix start
+service dovecot start
+service postfix start
 ```
 
 
