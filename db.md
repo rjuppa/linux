@@ -67,7 +67,7 @@ do
 done
 
 <?php
-$servername = "localhost";
+$servername = ""10.0.0.1:1337";";
 $username = "username";
 $password = "password";
 $dbname = "db01";
