@@ -28,7 +28,7 @@ port = 1234    #pro port pod 1024 musí být ještě user = root
 [client]
 port = 1234
 
-mysqldump 
+mysqldump -u root -p db01 > database_name.sql
 mysqladmin
 rsync -rav /var/lib/mysql/ /srv/zaloha-mysql/
 
