@@ -169,6 +169,10 @@ service apache2 restart
 
 # load balancing
 nginx.conf
+events {
+  worker_connections  1024; 
+}
+
 http {
   upstream backend {
     server 127.0.0.1:8000 weight=3;
@@ -179,6 +183,19 @@ http {
 
   server {
     listen 80;
+    server_name test.spos;
+    location / {
+      proxy_pass http://backend;
+    }
+  }
+  
+    server {
+    listen 443 ssl;
+    root /var/www/web1/;
+        ssl    on;
+        ssl_certificate    /etc/ssl/certs/ssl-cert-snakeoil.pem;
+        ssl_certificate_key    /etc/ssl/private/ssl-cert-snakeoil.key;
+
     server_name test.spos;
     location / {
       proxy_pass http://backend;
