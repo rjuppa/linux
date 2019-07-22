@@ -39,21 +39,23 @@ USE databaze;
 DESC tabulka;
 SHOW CREATE TABLE tabulka\G
 
+vse pod rootem:
+CREATE USER 'spos'@'10.0.0.1' IDENTIFIED BY 'spos*2018';
+CREATE DATABASE db01 DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci;
+GRANT ALL PRIVILEGES ON db01.* to 'spos'@'10.0.0.1' IDENTIFIED BY 'spos*2018';
+FLUSH PRIVILEGES;
+
 CREATE USER 'db01'@'localhost' IDENTIFIED BY 'password';
 -- ALTER USER 'user'@'localhost' IDENTIFIED BY 'newPass';
 -- SET PASSWORD FOR 'user'@'localhost' = PASSWORD('foobar');
 CREATE DATABASE db01 DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci;
 GRANT ALL PRIVILEGES ON db01.* to 'db01'@'localhost' IDENTIFIED BY 'xxx';
 FLUSH PRIVILEGES;
-CREATE TABLE skore(
-   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-   firstname VARCHAR(30) NULL,
-   lastname VARCHAR(30) NULL,
-   email VARCHAR(50),
-   reg_date TIMESTAMP
-);
-INSERT INTO table01(id, firstname, lastname,email,reg_date) VALUES(1,'Radek','Juppa','rjuppa@gmail.com', NOW());
-INSERT INTO skore(firstname, lastname, email, reg_date) VALUES('Radek', 's', 'em@aaa.cz', NOW());
+
+pod userem:
+CREATE TABLE skore(id INT(6) AUTO_INCREMENT PRIMARY KEY,name VARCHAR(30) NULL,email VARCHAR(50),reg_date TIMESTAMP);
+INSERT INTO table01(name, email,reg_date) VALUES('Radek','rjuppa@gmail.com', NOW());
+INSERT INTO skore(firstname, email, reg_date) VALUES('Radek', 'em@aaa.cz', NOW());
 
 #! /bin/bash
 echo "START"
