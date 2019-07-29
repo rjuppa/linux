@@ -77,6 +77,9 @@ mdadm --add /dev/md0 /dev/sdc1
 mkfs.ext4 -F /dev/md0
 e2label /dev/md1 raid5
 
+# /etc/fstab
+LABEL=raid5       /mnt/md0    ext4    defaults        0       2
+
 mkdir -p /mnt/md0
 mount /dev/md0 /mnt/md0
 df -h
@@ -103,6 +106,9 @@ mount /dev/data/video /mnt/video
 lvdisplay
 umount /mnt/video
 lvremove /dev/jmeno_skupiny/jmeno_oddilu
+
+# /etc/fstab
+LABEL=video       /mnt/video    ext4    defaults        0       2
 
 # swap
 fallocate -l 1G /swapfile
