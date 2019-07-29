@@ -14,7 +14,7 @@ mkdir /mnt/share
 chown nfs_share:nfs_group /mnt/share
 chmod -R 770 /mnt/share
 
-/etc/exports:
+vim /etc/exports
 /mnt/share 192.168.0.4/24(rw,all_squash,anonuid=6000,anongid=6000)
 exportfs -r
 
