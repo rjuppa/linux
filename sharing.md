@@ -90,9 +90,9 @@ ls -l /mnt/extra/
 smbclient //localhost/share1 -U radekj
 smbclient -L localhost
 
-mount -t cifs //localhost/share1 /mnt/share -o username=radekj
+mount -t cifs //localhost/share1 /mnt/share -o username=sambator
 vim /etc/fstab	# add line
-//server/docs /mnt/samba      smbfs   username=admin,password=pass 0 0
+//server/docs /mnt/samba      cifs   username=sambator,password=r 0 0
 
 mount a   # namontuj fstab
 ```
