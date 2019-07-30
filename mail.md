@@ -26,6 +26,7 @@ mailbox_command =
 service postfix restart
 echo "Test2" | mail -s "Testovaci mail2" radekj@test.spos
 ls -l /var/mail/
+mutt -f /home/user2/Maildir
 
 telnet localhost 25
   HELO test.spos
