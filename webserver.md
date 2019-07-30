@@ -29,6 +29,7 @@ chown -R radekj /var/www/test.spos/
 chgrp -R www-data /var/www/test.spos/
 a2enmod test.spos
 service apache2 reload
+vim /etc/resolv.conf 
 
 Listen 8080
 <VirtualHost *:8080>
