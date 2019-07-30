@@ -3,16 +3,16 @@
 netstat -tulpn | grep :3306
 apt -y install mysql-server
 service mysql status
-/etc/mysql/
-/var/lib/mysql
-vim /etc/mysql/my.cnf 
+
+vim /etc/mysql/my.cnf
+bind-adress = 10.0.0.1 #adresa na které mysql poslouchá
+[mysqld]
+port = 1234    #pro port pod 1024 musí být ještě user = root
+[client]
+port = 1234
 
 mysql
 mysql -u root -pr
-mysql>SELECT user,authentication_string,plugin,host FROM mysql.user;
-mysql>ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-mysql>ALTER USER 'root'@'localhost' IDENTIFIED BY 'r';
-
 mysql -u root -p - přihlášení do databáze pod uživatele root
 mysql -u root -p -h 192.168.0.100 -P 3309 - přihlášení z jiného stroje na 192.168.0.100:3309
 
@@ -21,18 +21,10 @@ mysql -u root -p -h 192.168.0.100 -P 3309 - přihlášení z jiného stroje na 1
 	user=user
 	password=pass
 
-/etc/mysql/my.cnf
-bind-adress = 10.0.0.1 #adresa na které mysql poslouchá
-[mysqld]
-port = 1234    #pro port pod 1024 musí být ještě user = root
-[client]
-port = 1234
-
 mysqldump -u root -p db01 > database_name.sql
 mysqladmin
 rsync -rav /var/lib/mysql/ /srv/zaloha-mysql/
 
-mysql -uroot -pheslo databaze
 SHOW DATABASES;
 SHOW TABLES;
 USE databaze;
@@ -40,22 +32,17 @@ DESC tabulka;
 SHOW CREATE TABLE tabulka\G
 
 vse pod rootem:
-CREATE USER 'spos'@'10.0.0.1' IDENTIFIED BY 'spos*2018';
+CREATE USER 'spos'@'10.0.0.1' IDENTIFIED BY 'r';
 CREATE DATABASE db01 DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci;
-GRANT ALL PRIVILEGES ON db01.* to 'spos'@'10.0.0.1' IDENTIFIED BY 'spos*2018';
+GRANT ALL PRIVILEGES ON db01.* to 'spos'@'10.0.0.1' IDENTIFIED BY 'r';
 FLUSH PRIVILEGES;
-
-CREATE USER 'db01'@'localhost' IDENTIFIED BY 'password';
 -- ALTER USER 'user'@'localhost' IDENTIFIED BY 'newPass';
 -- SET PASSWORD FOR 'user'@'localhost' = PASSWORD('foobar');
-CREATE DATABASE db01 DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci;
-GRANT ALL PRIVILEGES ON db01.* to 'db01'@'localhost' IDENTIFIED BY 'xxx';
-FLUSH PRIVILEGES;
 
 pod userem:
-CREATE TABLE skore(id INT(6) AUTO_INCREMENT PRIMARY KEY,name VARCHAR(30) NULL,email VARCHAR(50),reg_date TIMESTAMP);
-INSERT INTO table01(name, email,reg_date) VALUES('Radek','rjuppa@gmail.com', NOW());
-INSERT INTO skore(firstname, email, reg_date) VALUES('Radek', 'em@aaa.cz', NOW());
+USE db01;
+CREATE TABLE table01(id INT(6) AUTO_INCREMENT PRIMARY KEY,name VARCHAR(30) NULL,reg_date TIMESTAMP);
+INSERT INTO table01(name, reg_date) VALUES('Radek', NOW());
 
 #! /bin/bash
 echo "START"
@@ -68,8 +55,8 @@ done
 
 <?php
 $servername = ""10.0.0.1:1337";";
-$username = "username";
-$password = "password";
+$username = "spos";
+$password = "r";
 $dbname = "db01";
 
 // Create connection
@@ -94,9 +81,6 @@ $conn->close();
 ?>
 
 ```
-
-
-
 
 
 ### PostgreSQL
