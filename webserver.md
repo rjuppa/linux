@@ -84,8 +84,8 @@ echo "deb https://packages.sury.org/php/ jessie main" | tee /etc/apt/sources.lis
 apt update
 apt -y install php php-mysql libapache2-mod-php
 
-vim /etc/php/7.2/apache2/php.ini
-cat /etc/php/7.2/cli/php.ini
+vim /etc/php/7.3/apache2/php.ini
+cat /etc/php/7.3/cli/php.ini
 
 upload_max_filesize = 16M
 memory_limit = 128M
