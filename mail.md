@@ -7,6 +7,7 @@ less /var/log/mail.log
 
 # každý uživatel, kterému má být možno poslat mail, musí být ve skupině mail
 useradd -m -s /bin/bash user1
+passwd user1
 usermod -G mail user1
 
 # Modifikace DNS pro maily (domena test.spos, adresa 192.168.0.106):
@@ -89,8 +90,7 @@ mkdir /home/john/Maildir
 chown john:john /home/john/Maildir
 chmod -R 700 /home/john/Maildir 
 
-service dovecot start
-service postfix start
+service dovecot restart
 ```
 
 
