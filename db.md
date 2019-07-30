@@ -31,6 +31,8 @@ USE databaze;
 DESC tabulka;
 SHOW CREATE TABLE tabulka\G
 
+SELECT User, Host, Password FROM mysql.user;
+
 vse pod rootem:
 CREATE USER 'spos'@'10.0.0.1' IDENTIFIED BY 'r';
 CREATE DATABASE db01 DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci;
