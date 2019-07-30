@@ -69,6 +69,11 @@ $TTL	604800
 0.168.192.in-addr.arpa.	IN	NS	ns1.test.spos.
 106.0.168.192.in-addr.arpa.	IN	PTR	mail.test.spos.
 
+nebo
+@       IN      NS      ns1.test.spos.
+105     IN      PTR     test.spos.
+
+
 dig -x 192.168.0.106 @127.0.0.1
 
 VIEWS:
