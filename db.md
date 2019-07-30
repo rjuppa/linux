@@ -104,21 +104,32 @@ $conn->close();
 netstat -tulpn | grep :5432
 apt -y install postgresql postgresql-contrib
 apt -y install php-pgsql 
-/etc/init.d/postgresql restart
+service postgresql restart
 sudo -i -u postgres
+
+
+export LANGUAGE="en_US.UTF-8"
+echo 'LANGUAGE="en_US.UTF-8"' >> /etc/default/locale
+echo 'LC_ALL="en_US.UTF-8"' >> /etc/default/locale
 
 /etc/postgresql/10/main/
 /var/lib/postgresql/10/main/
 
-pg_hba.conf:
+vim /etc/postgresql/9.4/main/postgresql.conf
+listen_addresses = '*'
+port = 5432
+
+vim /etc/postgresql/9.4/main/pg_hba.conf 
+# host  DATABASE    USER            ADDRESS         METHOD   md5=heslo
 local   all         postgres                         peer
-local   all         all                              md5
+host    db01        spos            0.0.0.0/0        md5
 host    all         all             127.0.0.1/32     md5
 host    all         all             ::1/128          md5
 
 cat ~/.pgpass
 localhost:5432:db01:db01:password
 
+psql -h 10.0.0.1 -U spos -W db01
 psql -U db01 db01 -W
 psql -U root databaze
 \l
@@ -130,27 +141,21 @@ psql -U root databaze
 pg_dump
 pg_restore
 
-create user myuser with encrypted password 'mypass';
-grant all privileges on database mydb to myuser;
-create database mydb;
-
-CREATE USER db01 WITH PASSWORD 'xxx';
-CREATE DATABASE db01 WITH OWNER=db01;
-GRANT ALL PRIVILEGES ON DATABASE db01 to db01;
+CREATE USER spos WITH PASSWORD 'r';
+CREATE DATABASE db01 WITH OWNER=spos;
+GRANT ALL PRIVILEGES ON DATABASE db01 to spos;
 \c db01;
 CREATE TABLE table01(
    id SERIAL PRIMARY KEY,
-   firstname VARCHAR(30) NOT NULL,
-   lastname VARCHAR(30) NOT NULL,
-   email VARCHAR(50),
-   reg_date TIMESTAMP
+   name VARCHAR(30) NOT NULL,
+   reg TIMESTAMP
 );
 ALTER TABLE table01 OWNER TO db01;
-INSERT INTO table01(id, firstname, lastname,email,reg_date) VALUES(1,'Radek','Juppa','rjuppa@gmail.com', NOW());
+INSERT INTO table01(id, name, reg) VALUES(1,'Radek', NOW());
 
 <?php
 // Connecting, selecting database
-$dbconn = pg_connect("host=localhost dbname=db01 user=db01 password=xx")
+$dbconn = pg_connect("host=localhost dbname=db01 user=spos password=r")
     or die('Could not connect: ' . pg_last_error());
 
 // Performing SQL query
@@ -177,7 +182,7 @@ pg_close($dbconn);
 
 bash:
 for i in `seq 1 50`; do 
-   echo "INSERT INTO table01 (firstname, lastname, email, reg_date) VALUES ('$(pwgen 5 1)','$(pwgen 10 1)','$(pwgen 5 1)@spos-jindra.spos',now())" | mysql db01
+   echo "INSERT INTO table01 (name, reg) VALUES ('$(pwgen 5 1)',now())" | mysql db01
 done
 
 ```
