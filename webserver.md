@@ -1,8 +1,7 @@
 ### Apache
 ```
 posts: 80, 443               // netstat -tulpn | grep :8080        <- Who listen on :8080
-apt -y install apache2
-apt -y install curl
+apt -y install apache2 curl
 
 service apache2 restart
 #a2enmod ssl
