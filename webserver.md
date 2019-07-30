@@ -2,21 +2,22 @@
 ```
 posts: 80, 443               // netstat -tulpn | grep :8080        <- Who listen on :8080
 apt -y install apache2 curl
-
+user: www-data / httpd
 service apache2 restart
 #a2enmod ssl
 a2enmod | a2dismod
 a2dissite 000-default
 a2ensite web1
+mkdir /var/www/web1
+echo "<html>web1</html>" > /var/www/web1/index.html
 
-user: www-data / httpd
 
 /etc/apache2/sites-available/web1.conf
 /etc/apache2/sites-enabled
 /etc/apache2/mods-*
-/etc/apache/ports.conf
-/var/www/
+/etc/apache2/ports.conf		// Listen 80
 /var/log/apache2/*access.log
+/var/www/
 
 apachectl -t | apachectl -S
 
