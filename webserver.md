@@ -6,7 +6,8 @@ apt -y install apache2 curl
 service apache2 restart
 #a2enmod ssl
 a2enmod | a2dismod
-a2ensite | a2dissite
+a2dissite 000-default
+a2ensite web1
 
 user: www-data / httpd
 
