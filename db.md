@@ -4,6 +4,8 @@ netstat -tulpn | grep :3306
 apt -y install mysql-server
 service mysql status
 
+ip a add 10.0.0.1/24 dev eth0 
+
 vim /etc/mysql/my.cnf
 bind-adress = 10.0.0.1 #adresa na které mysql poslouchá
 [mysqld]
@@ -46,7 +48,7 @@ USE db01;
 CREATE TABLE table01(id INT(6) AUTO_INCREMENT PRIMARY KEY,name VARCHAR(30) NULL,reg_date TIMESTAMP);
 INSERT INTO table01(name, reg_date) VALUES('Radek', NOW());
 
-#! /bin/bash
+#!/bin/bash
 echo "START"
 for i in {2..50};
 do
@@ -54,6 +56,9 @@ do
    echo "INSERT INTO skore(firstname, lastname, email, reg_date) VALUES('$(pwgen 5 1)', 'num-$n', 'em@aaa.cz', NOW());" | mysql -u spos -pspos -h 10.0.0.1 db01
    echo $i
 done
+
+chmod +x script
+bash ./script
 
 <?php
 $servername = ""10.0.0.1:1337";";
