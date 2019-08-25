@@ -38,6 +38,12 @@ PermitRootLogin no
 
 /etc/init.d/ssh reload
 
+# basic security
+ufw reset
+ufw allow from 147.228.0.0/16 to any port 22
+ufw default deny
+ufw enable
+
 
 # sudouser
 useradd -m -s /bin/bash radekj
