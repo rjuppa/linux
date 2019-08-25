@@ -9,6 +9,9 @@ less /var/log/mail.log
 useradd -m -s /bin/bash user1
 passwd user1
 usermod -G mail user1
+mkdir /home/user1/Maildir
+chown user1:user1 /home/user1/Maildir
+chmod -R 700 /home/user1/Maildir 
 
 # Modifikace DNS pro maily (domena test.spos, adresa 192.168.0.106):
 mail    IN      A       192.168.0.106
