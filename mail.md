@@ -74,7 +74,7 @@ vim /etc/dovecot/dovecot.conf
 protocols = imap pop3
 listen = *, ::
 
-/etc/dovecot/conf.d/10-mail.conf
+vim /etc/dovecot/conf.d/10-mail.conf
 mail_location = mbox:~/mail:INBOX=/var/mail/%u
 mail_location = maildir:~/Maildir
 
