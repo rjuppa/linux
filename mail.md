@@ -24,6 +24,15 @@ mynetworks = 192.168.0.0/24 127.0.0.0/8
 home_mailbox = Maildir/
 mailbox_command =
 
+Cert.
+openssl genrsa -des3 -out server.key 1024
+openssl req -new -key server.key -out server.csr
+cp server.key server.key.org
+openssl rsa -in server.key.org -out server.key
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+cp server.crt /etc/ssl
+cp server.key /etc/ssl
+
 service postfix restart
 echo "Test2" | mail -s "Testovaci mail2" radekj@test.spos
 ls -l /var/mail/
