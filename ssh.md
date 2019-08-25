@@ -11,6 +11,9 @@ ssh-add
 
 service ssh status
 systemctl [start/restart/stop/disable/enable] ssh
+
+apt install -y fail2ban
+service fail2ban start
 ```
 
 ### on client:
@@ -34,6 +37,7 @@ PasswordAuthentication no
 PermitRootLogin no
 
 /etc/init.d/ssh reload
+
 
 # sudouser
 useradd -m -s /bin/bash radekj
