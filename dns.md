@@ -18,23 +18,23 @@ netstat -tulpn | grep :53
 apt -y install bind9 dnsutils
 service bind9 start|stop|restart
 
-/etc/resolv.conf
+vim /etc/resolv.conf
 nameserver 127.0.0.1
 
-/etc/bind/named.conf*
-/etc/bind/db.*
+ls -l /etc/bind/named.conf*
+ls -l /etc/bind/db.*
 less /var/log/syslog
 
 dig -t A zcu.cz @127.0.0.1
 
-/etc/bind/named.conf.local 
+vim /etc/bind/named.conf.local 
 zone "test.spos" { 			// zona test.spos
         type master;
         allow-transfer { any; };
         file "/etc/bind/db.test.spos"; 
 };
 
-/etc/bind/db.test.spos
+vim /etc/bind/db.test.spos
 $TTL	86400
 @	IN	SOA	test.spos. root.localhost. (
 			      4		; Serial
@@ -56,7 +56,7 @@ zone "0.168.192.in-addr.arpa" {
         file "/etc/bind/db.192.168.0";
 };
 
-/etc/bind/db.192.168.0			// reverzni zaznam
+vim /etc/bind/db.192.168.0			// reverzni zaznam
 $ORIGIN 0.168.192.in-addr.arpa.
 $TTL	604800
 @	IN	SOA	ns1.test.spos. root.localhost. (
