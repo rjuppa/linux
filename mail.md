@@ -149,4 +149,11 @@ openssl s_client -connect localhost:995
 openssl s_client -connect mail.test.spos:993
 
 SMTP 25; POP3 110; IMAP 143; IMAPS 993; POP3S 995
+
+ufw reset
+ufw allow 22/tcp
+ufw allow from 192.168.0.0/24 to any port 110		// povolit z LAN
+ufw allow from 147.228.0.0/16 to any port 995		// povolit z ZCU
+ufw default deny
+ufw enable
 ```
