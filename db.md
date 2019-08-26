@@ -53,9 +53,11 @@ echo "START"
 for i in {2..50};
 do
    n=$((1 + RANDOM % 10))
-   echo "INSERT INTO skore(firstname, lastname, email, reg_date) VALUES('$(pwgen 5 1)', 'num-$n', 'em@aaa.cz', NOW());" | mysql -u spos -pspos -h 10.0.0.1 db01
+   echo "INSERT INTO table01(name, reg_date) VALUES('num-$n', NOW());" | mysql -u spos -pspos -h 10.0.0.1 db01
    echo $i
 done
+
+pwgen
 
 chmod +x script
 bash ./script
@@ -136,11 +138,7 @@ CREATE USER spos WITH PASSWORD 'r';
 CREATE DATABASE db01 WITH OWNER=spos;
 GRANT ALL PRIVILEGES ON DATABASE db01 to spos;
 \c db01;
-CREATE TABLE table01(
-   id SERIAL PRIMARY KEY,
-   name VARCHAR(30) NOT NULL,
-   reg TIMESTAMP
-);
+CREATE TABLE table01(id SERIAL PRIMARY KEY, name VARCHAR(30) NULL, reg TIMESTAMP);
 ALTER TABLE table01 OWNER TO db01;
 INSERT INTO table01(id, name, reg) VALUES(1,'Radek', NOW());
 
