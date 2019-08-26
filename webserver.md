@@ -107,9 +107,7 @@ php_admin_value open_basedir /var/www/www.test.spos
 php_admin_value upload_tmp_dir /var/www/www.test.spos/phptmp
 php_admin_value session.save_path /var/www/www.test.spos/phptmp
 
-<?php
-  phpinfo();
-?>
+<?php phpinfo(); ?>
 
 <?php
     $page = $_GET['page'];
@@ -124,6 +122,8 @@ php_admin_value session.save_path /var/www/www.test.spos/phptmp
 ### NGINX
 ```
 apt -y install nginx      - nesmí nic poslouchat na portu 80
+netstat -tupln | grep :80
+vim /etc/apache2/ports.conf
 
 vim /etc/nginx/sites-available/test.spos
 server {
@@ -158,7 +158,7 @@ server {
 
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/test.spos /etc/nginx/sites-enabled/test.spos
-systemctl restart nginx
+service nginx restart 
 
 vim /etc/apache2/ports.conf		// Apache listen on 127.0.0.1:8080
 NameVirtualHost 127.0.0.1:8080
@@ -170,7 +170,7 @@ change <VirtualHost 127.0.0.1:8080>
 service apache2 restart
 
 # load balancing
-nginx.conf
+vim /etc/nginx/nginx.conf
 events {
   worker_connections  1024; 
 }
