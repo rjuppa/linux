@@ -120,7 +120,7 @@ host    all         all             127.0.0.1/32     md5
 host    all         all             ::1/128          md5
 
 cat ~/.pgpass
-localhost:5432:db01:db01:password
+localhost:5432:db01:spos:password
 
 psql -h 10.0.0.1 -U spos -W db01
 psql -U db01 db01 -W
@@ -170,8 +170,11 @@ pg_close($dbconn);
 ?>
 
 bash:
-for i in `seq 1 50`; do 
-   echo "INSERT INTO table01 (name, reg) VALUES ('$(pwgen 5 1)',now())" | mysql db01
+for i in {2..50};
+do 
+   n=$((1 + RANDOM % 10))
+   echo "INSERT INTO table01 (name, reg) VALUES ('$(pwgen 5 1)',now())" | psql -h 10.0.0.1 -U spos -w db01
+   echo $i
 done
 
 ```
