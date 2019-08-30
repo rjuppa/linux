@@ -9,7 +9,8 @@ cat /proc/partitions
 cat /proc/mdstat
 
 df -h | df -m | df -i
-du -h | du -hs | du -m
+du -h | du -hs | du -m    // disk usage
+du -sh /home              // size of directory
 
 fdisk -l /dev/sda
 cfdisk /dev/sda
