@@ -1,7 +1,7 @@
 ### ssh server
 ```
 apt install openssh-server
-systemctl status ssh
+service sshd status
 
 ssh radekj@192.168.0.105
 
@@ -9,8 +9,7 @@ ssh radekj@192.168.0.105
 ssh-agent -s
 ssh-add
 
-service ssh status
-systemctl [start/restart/stop/disable/enable] ssh
+service sshd [start/restart/stop/disable/enable]
 
 apt install -y fail2ban
 service fail2ban start
@@ -25,7 +24,8 @@ ls -l ~/.ssh/id_*.pub
 ssh-keygen -t rsa -b 4096 -C "radekj@192.168.0.105"
 
 # copy key to server
-ssh-copy-id radekj@192.168.0.105
+# with enabled SSH Password than turn it off
+ssh-copy-id -i /Users/radekj/.ssh/id_rsa.pub radekj@tarkil.metacentrum.cz
 
 # ssh-agent can remenber passphrase
 ssh-agent -s
@@ -35,8 +35,6 @@ ssh-add
 /etc/ssh/sshd_config
 PasswordAuthentication no
 PermitRootLogin no
-
-/etc/init.d/ssh reload
 
 # basic security
 ufw reset
