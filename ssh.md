@@ -27,6 +27,9 @@ ssh-keygen -t rsa -b 4096 -C "radekj@192.168.0.105"
 # with enabled SSH Password than turn it off
 ssh-copy-id -i /Users/radekj/.ssh/id_rsa.pub radekj@tarkil.metacentrum.cz
 
+# remove old key from known_hosts
+ssh-keygen -R "hostname"
+
 # ssh-agent can remenber passphrase
 ssh-agent -s
 ssh-add
