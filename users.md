@@ -42,9 +42,9 @@ mkdir -p 777 /var/www/dir/dir2
 rm -rf path/to/directory/*    (delete all files in derectory recursively)
 sudo ln -s /Users/devroot/statusdroid/src /app
 
-gzip -k file.txt
-gzip -r *
-gzip -d file.txt.gz
+
+tar -zcvf test.tar.gz test/      # compress
+tar -zxvf archive.tar.gz         # decompress
 
 printenv | grep ARTI
 
