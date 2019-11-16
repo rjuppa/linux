@@ -51,6 +51,7 @@ printenv | grep ARTI
 find / -name "aaa.txt"
 find . -name "*.bak" -type f -delete
 grep -rnw /etc/apt/ -e "launchpad"
+grep -rnw /data/www/webshare/ -e "keyword"
 
 whereis firefox  (for programs)
 which firefox
