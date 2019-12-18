@@ -6,6 +6,9 @@ host -t NS zcu.cz
 dig -t AAAA zcu.cz
 nslookup (IP nebo adresa)
 whois
+hostname -I   # show all IP addresses
+ip a  # show network devices
+/proc/net/bonding/bondVIP  # show network card
 
 /etc/resolv.conf
 /etc/hosts
