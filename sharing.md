@@ -33,6 +33,9 @@ ls -l /mnt/nfs
 
 showmount -e 192.168.0.106
 
+# mount directory
+mount --bind <olddir> <mountpoint>
+
 mount -t nfs /dev/vdb1 /mnt
 mount /mnt/nfs
 fuser -m DIRECTORY # kdo tam ma neco otevreneho
