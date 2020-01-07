@@ -2,9 +2,9 @@
 ```
 https://crontab.guru
 
-crontab -e
-crontab -l
-crontab -r
+crontab -e   (edit)
+crontab -l   (list)
+crontab -r   (remove)
 
 10 * * * * /usr/bin/php /www/virtual/username/cron.php > /dev/null 2>&1   # discard output
 10 * * * * /usr/bin/php /www/virtual/username/cron.php > /var/log/cron.log
