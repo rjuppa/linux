@@ -32,8 +32,10 @@ ssh-copy-id -i /Users/radekj/.ssh/id_rsa.pub radekj@tarkil.metacentrum.cz
 ssh-keygen -R "hostname"
 
 # ssh-agent can remenber passphrase
-ssh-agent -s
-ssh-add
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+ssh-add -l
+2048 82:...:dc /home/radekj/.ssh/id_rsa (RSA)
 
 # Disabling SSH Password
 /etc/ssh/sshd_config
