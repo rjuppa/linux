@@ -110,6 +110,12 @@ ufw enable
 nmap 192.168.0.0/24
 nmap -p 53 192.168.0.1
 
+
+# check remote port
+nc -zv 201.158.174.85 22
+[201.158.174.85] 22 (ssh) open
+
+
 # add new IP addr
 ip a show
 ip a add 192.168.0.100/24 dev eth0  
