@@ -48,6 +48,10 @@ ufw allow from 147.228.0.0/16 to any port 22
 ufw default deny
 ufw enable
 
+# check remote port
+nc -zv 201.158.174.85 22
+[201.158.174.85] 22 (ssh) open
+
 
 # sudouser
 useradd -m -s /bin/bash radekj
