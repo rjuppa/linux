@@ -1,6 +1,7 @@
 ### Apache
 ```
 posts: 80, 443               // netstat -tulpn | grep :8080        <- Who listen on :8080
+                             // lsof -nP -iTCP:8080 | grep LISTEN  <- macOS
 apt -y install apache2 curl
 user: www-data / httpd
 service apache2 restart
