@@ -24,6 +24,9 @@ chgrp -R nogroup /var/dir
 
 chmod 600 ~/.ssh/authorized_keys
 
+# sudo user without password
+sudo visudo
+user1     ALL=(ALL) NOPASSWD:ALL
 
 ls -la /home/username/
 drwxr-xr-x 2 username username 4096 Dec 11 11:23 .
