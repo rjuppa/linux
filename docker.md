@@ -13,7 +13,7 @@ docker exec -it adminer_1 sh      # interactive tty(shell) for existing containe
 docker rm 305297d7a235 ff0a5c3750b9         # remove container
 docker top 8a3ab5e82bef           # show top processes
 docker inspect 8a3ab5e82bef    
-docker prune                      # clean garbage containers
+docker container prune                      # clean garbage containers
 docker system prune                         # clean all garbage
 
 docker build -t my_web .                             # build container from .Dockerfile
